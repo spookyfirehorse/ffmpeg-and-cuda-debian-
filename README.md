@@ -1,3 +1,37 @@
+       ffmpeg  -re  -fflags +genpts+igndts   -hwaccel nvdec -hwaccel_output_format nv12  -i  https://stv-live.akamaized.net/hls/live/2031011/lingeoSTVATwebPri/master_6692.m3u8  -h>
+         -vcodec h264_nvenc -bufsize 8M -filter:v scale=720:-1 -b:v 1M  -preset p2 -tune ll  -profile:v  main  -level:v 4.1 -maxrate 2M -qmin 0 -g 250 -bf 3 -b_ref_mode middle -temporal-aq 1 -rc-lookahead 20 -i_qfactor 0.75 -b_qfactor 1.1  -c:a libfdk_aac -bufsize 8M -filter:v scale=720:-1 -b:v 1M  -preset p2 -tune ll  -profile:v  main  -level:v 4.1 -maxrate 2M -qmin 0 -g 250 -bf 3 -b_ref_mode middle -temporal-aq 1 -rc-lookahead 20 -i_qfactor 0.75 -b_qfactor 1.1 -b:a 64k  -threads 4  -f rtsp -rtsp_transport tcp  rtsp://localhost:8559/mystream
+
+       export LD_LIBRARY_PATH=/home/john/cuda-7.5/lib64:$LD_LIBRARY_PATH
+       export LIBRARY_PATH=/home/john/cuda-7.5/lib64:$LIBRARY_PATH
+       export PATH=/home/john/cuda-7.5/bin:$PATH
+       export CFLAGS=-I/home/me/local/include
+       export LDFLAGS="-L/home/me/local/lib"
+       export PKG_CONFIG_PATH=~/local/lib/pkgconfig
+       
+       LDFLAGS="-L/home/me/local/lib" CFLAGS="-I/home/me/local/include"
+
+       export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/me/local/lib
+
+       ffmpeg -vsync 0 -hide_banner  -hwaccel cuda -hwaccel_output_format cuda  \
+         -f pulse -ac 2 -i alsa_output.usb-Yamaha_Corporation_Steinberg_UR22C-00.pro-output-0.monitor  \
+         -f x11grab -r 30  -video_size 1920x1080 -i :0.0+0,0 -c:v h264_nvenc  \
+          -bufsize 8M -filter:v scale=720:-1 -b:v 1M  -preset p2 -tune ll  -profile:v  main  -level:v 4.1 -maxrate 2M -qmin 0 -g 250 -bf 3 -b_ref_mode middle -temporal-aq 1 -rc-lookahead 20 -i_qfactor 0.75 -b_qfactor 1.1 \
+         -c:a libfdk_aac -b:a 96k -bufsize 8M -filter:v scale=720:-1 -b:v 1M  -preset p2 -tune ll  -profile:v  main  -level:v 4.1 -maxrate 2M -qmin 0 -g 250 -bf 3 -b_ref_mode middle -temporal-aq 1 -rc-lookahead 20 -i_qfactor 0.75 -b_qfactor 1.1 -ar 48000   -f rtsp rtsp://localhost:8559/mystream
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 sorry for my bad english
 
