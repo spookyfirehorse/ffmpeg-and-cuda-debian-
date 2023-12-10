@@ -73,4 +73,4 @@ export
        LDFLAGS="-L/home/me/local/lib" CFLAGS="-I/home/me/local/include"
        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/me/local/lib
 
-     
+     sudo firewall-cmd --permanent --add-port=8554/tcp
