@@ -14,28 +14,28 @@
 nvenc + fdkaac +x11grab
        
        ffmpeg -vsync 0 -hide_banner  -hwaccel cuda -hwaccel_output_format cuda  \
-  -f pulse -ac 2 -i alsa_output.usb-Yamaha_Corporation_Steinberg_UR22C-00.pro-output-0.monitor  \
-  -f x11grab -r 30  -video_size 1920x1080 -i :0.0+0,0 -c:v h264_nvenc  \
-   -bufsize 8M -filter:v scale=720:-1 -b:v 1M  -preset p2 -tune ll  -profile:v  main  -level:v 4.1 -maxrate 2M -qmin 0 -g 250 -bf 3 -b_ref_mode middle -temporal-aq 1 -rc-lookahead 20 -i_qfactor 0.75 -b_qfactor 1.1 \
-  -c:a libfdk_aac -profile:a aac_he -b:a 64k  -ar 48000   -f rtsp rtsp://localhost:8559/mystream
+         -f pulse -ac 2 -i alsa_output.usb-Yamaha_Corporation_Steinberg_UR22C-00.pro-output-0.monitor  \
+         -f x11grab -r 30  -video_size 1920x1080 -i :0.0+0,0 -c:v h264_nvenc  \
+          -bufsize 8M -filter:v scale=720:-1 -b:v 1M  -preset p2 -tune ll  -profile:v  main  -level:v 4.1 -maxrate 2M -qmin 0 -g 250 -bf 3 -b_ref_mode middle -temporal-aq 1 -rc-lookahead 20 -i_qfactor 0.75 -b_qfactor 1.1 \
+         -c:a libfdk_aac -profile:a aac_he -b:a 64k  -ar 48000   -f rtsp rtsp://localhost:8559/mystream
 
 nvenc + opus + x11grab
 
        ffmpeg -async 1 -hide_banner  -hwaccel cuda -hwaccel_output_format cuda  \
-  -f pulse -ac 2 -i alsa_output.usb-Yamaha_Corporation_Steinberg_UR22C-00.pro-output-0.monitor  \
-  -f x11grab -r 30  -video_size 1920x1080 -i :0.0+0,0 -c:v h264_nvenc  \
-   -bufsize 8M -filter:v scale=720:-1 -b:v 1M  -preset p2 -tune ll  -profile:v  main  -level:v 4.1 -maxrate 2M -qmin 0 -g 250 -bf 3 -b_ref_mode middle -temporal-aq 1 -rc-lookahead 20 -i_qfactor 0.75 -b_qfactor 1.1 \
-  -c:a libopus  -b:a 64k  -application lowdelay  -ar 48000   -f rtsp rtsp://localhost:8559/mystream
+         -f pulse -ac 2 -i alsa_output.usb-Yamaha_Corporation_Steinberg_UR22C-00.pro-output-0.monitor  \
+         -f x11grab -r 30  -video_size 1920x1080 -i :0.0+0,0 -c:v h264_nvenc  \
+          -bufsize 8M -filter:v scale=720:-1 -b:v 1M  -preset p2 -tune ll  -profile:v  main  -level:v 4.1 -maxrate 2M -qmin 0 -g 250 -bf 3 -b_ref_mode middle -temporal-aq 1 -rc-lookahead 20 -i_qfactor 0.75 -b_qfactor 1.1 \
+         -c:a libopus  -b:a 64k  -application lowdelay  -ar 48000   -f rtsp rtsp://localhost:8559/mystream
 
 nvenc + fdkaac +stream input
 
        ffmpeg  -re  -fflags +genpts+igndts   -hwaccel nvdec -hwaccel_output_format nv12  -i  https://stv-live.akamaized.net/hls/live/2031011/lingeoSTVATwebPri/master_6692.m3u8  -hide_banner    \
-  -vcodec h264_nvenc -bufsize 8M -filter:v scale=720:-1 -b:v 1M  -preset p2 -tune ll  -profile:v  main  -level:v 4.1 -maxrate 2M -qmin 0 -g 250 -bf 3 -b_ref_mode middle -temporal-aq 1 -rc-lookahead 20 -i_qfactor 0.75 -b_qfactor 1.1 -c:a libfdk_aac -profile:a aac_he -b:a 64k  -threads 4  -f rtsp -rtsp_transport tcp  rtsp://localhost:8559/mystream
+         -vcodec h264_nvenc -bufsize 8M -filter:v scale=720:-1 -b:v 1M  -preset p2 -tune ll  -profile:v  main  -level:v 4.1 -maxrate 2M -qmin 0 -g 250 -bf 3 -b_ref_mode middle -temporal-aq 1 -rc-lookahead 20 -i_qfactor 0.75        -b_qfactor 1.1 -c:a libfdk_aac -profile:a aac_he -b:a 64k  -threads 4  -f rtsp -rtsp_transport tcp  rtsp://localhost:8559/mystream
 
 nvenc + opus stream input
 
          ffmpeg  -re  -fflags +genpts+igndts   -hwaccel nvdec -hwaccel_output_format nv12  -i  https://stv-live.akamaized.net/hls/live/2031011/lingeoSTVATwebPri/master_6692.m3u8  -hide_banner    \
-  -vcodec h264_nvenc -bufsize 8M -filter:v scale=720:-1 -b:v 1M  -preset p2 -tune ll  -profile:v  main  -level:v 4.1 -maxrate 2M -qmin 0 -g 250 -bf 3 -b_ref_mode middle -temporal-aq 1 -rc-lookahead 20 -i_qfactor 0.75 -b_qfactor 1.1 -c:a libopus  -b:a 64k  -application lowdelay  -ar 48000 -threads 4  -f rtsp -rtsp_transport tcp  rtsp://localhost:8559/mystream
+         -vcodec h264_nvenc -bufsize 8M -filter:v scale=720:-1 -b:v 1M  -preset p2 -tune ll  -profile:v  main  -level:v 4.1 -maxrate 2M -qmin 0 -g 250 -bf 3 -b_ref_mode middle -temporal-aq 1 -rc-lookahead 20 -i_qfactor 0.75        -b_qfactor 1.1 -c:a libopus  -b:a 64k  -application lowdelay  -ar 48000 -threads 4  -f rtsp -rtsp_transport tcp  rtsp://localhost:8559/mystream
 
 all to mkv
        
@@ -51,13 +51,13 @@ dvd + all subtitles and all audio
        mplayer dvd://3 -dumpstream -dumpfile output.vob
 
 
-       ffmpeg   -hwaccel cuda -probesize 12000M -analyzeduration 12100M   -hwaccel_output_format nv12 -vsync 0  -i  /home/spook/output.vob  -ss 00:00:02     -metadata title='MYSTERY TRAIN'  -map 0:v -scodec copy   -map 0:s   -c:v h264_nvenc -profile:v high -level 4.1 -preset p5 -tune hq -b:v 3M -bufsize 5M -maxrate 5M -qmin 0 -g 250 -bf 3 -b_ref_mode middle -temporal-aq 1 -rc-lookahead 20 -i_qfactor 0.75 -b_qfactor 1.1   -c:a libfdk_aac  -b:a 128k -map 0:a -f mp4  output.mp4
+       ffmpeg   -hwaccel cuda -probesize 12000M -analyzeduration 12100M   -hwaccel_output_format nv12 -vsync 0  -i  /home/spook/output.vob  -ss 00:00:02     -metadata title='MYSTERY TRAIN'  -map 0:v -scodec copy   -map 0:s          -c:v h264_nvenc -profile:v high -level 4.1 -preset p5 -tune hq -b:v 3M -bufsize 5M -maxrate 5M -qmin 0 -g 250 -bf 3 -b_ref_mode middle -temporal-aq 1 -rc-lookahead 20 -i_qfactor 0.75 -b_qfactor 1.1   -c:a libfdk_aac         -b:a 128k -map 0:a -f mp4  output.mp4
 
 
 
 
 
-       ffmpeg   -hwaccel cuda  -probesize 12000M -analyzeduration 12100M   -hwaccel_output_format nv12 -vsync 0 -i  /media/moon/Filme/jim-jarmusch/ghost-dog.mkv  -ss 00:00:02     -metadata title='GHOST DOG'  -map 0:v -scodec copy   -map 0:s   -c:v h264_nvenc -preset p5 -tune hq  -profile:v high  -level:v 4.1 -maxrate 2M -qmin 0 -g 250 -bf 3 -b_ref_mode middle -temporal-aq 1 -rc-lookahead 20 -i_qfactor 0.75 -b_qfactor 1.1   -bufsize 5M   -c:a libfdk_aac  -b:a 128k -map 0:a -f mp4  ghost-dog.mp4
+       ffmpeg   -hwaccel cuda  -probesize 12000M -analyzeduration 12100M   -hwaccel_output_format nv12 -vsync 0 -i  /media/moon/Filme/jim-jarmusch/ghost-dog.mkv  -ss 00:00:02  -metadata title='GHOST DOG'  -map 0:v -scodec copy   -map 0:s   -c:v h264_nvenc -preset p5 -tune hq  -profile:v high  -level:v 4.1 -maxrate 2M -qmin 0 -g 250 -bf 3 -b_ref_mode middle -temporal-aq 1 -rc-lookahead 20 -i_qfactor 0.75 -b_qfactor 1.1   - bufsize 5M   -c:a libfdk_aac  -b:a 128k -map 0:a -f mp4  ghost-dog.mp4
 
        
        export LD_LIBRARY_PATH=/home/john/cuda-7.5/lib64:$LD_LIBRARY_PATH
