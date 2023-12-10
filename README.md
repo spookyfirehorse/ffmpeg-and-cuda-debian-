@@ -59,7 +59,8 @@ dvd + all subtitles and all audio
 
        ffmpeg   -hwaccel cuda  -probesize 12000M -analyzeduration 12100M   -hwaccel_output_format nv12 -vsync 0 -i  /media/moon/Filme/jim-jarmusch/ghost-dog.mkv  -ss 00:00:02  -metadata title='GHOST DOG'  -map 0:v -scodec copy   -map 0:s   -c:v h264_nvenc -preset p5 -tune hq  -profile:v high  -level:v 4.1 -maxrate 2M -qmin 0 -g 250 -bf 3 -b_ref_mode middle -temporal-aq 1 -rc-lookahead 20 -i_qfactor 0.75 -b_qfactor 1.1   - bufsize 5M   -c:a libfdk_aac  -b:a 128k -map 0:a -f mp4  ghost-dog.mp4
 
-       
+export
+
        export LD_LIBRARY_PATH=/home/john/cuda-7.5/lib64:$LD_LIBRARY_PATH
        export LIBRARY_PATH=/home/john/cuda-7.5/lib64:$LIBRARY_PATH
        export PATH=/home/john/cuda-7.5/bin:$PATH
@@ -70,85 +71,3 @@ dvd + all subtitles and all audio
        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/me/local/lib
 
      
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-sudo apt build-dep mpv && apt source mpv
-
-cd mpv...
-
-dpkg-buildpackage -us -uc 
-
-cd ..
-
-sudo dpkg -i lib*mpv*.deb mpv*.deb
-
-
-
-working with distro ffmpeg
-
-ssh user@host  ffmpeg -c:v h264_v4l2m2m -fflags +genpts+nobuffer+igndts+discardcorrupt -avioflag direct -flags +genpts+low_delay -hide_banner -strict experimental -f alsa -i plughw:CARD=Device,DEV=0  \
- -f v4l2  -input_format h264 -pix_fmt yuv420p -i /dev/video0  -c:v h264_v4l2m2m -pix_fmt yuv420p -b:v 1000k -c:a libopus -application lowdelay -b:a 32k  -ar 48000 -f s16le      -f mpegts  - | mpv  --profile=low-latency  --volume=50  -
- 
- 
- libfdk-aac is more compatible
- 
- ssh user@host  ffmpeg -an -hwaccel drm -hwaccel_output_format drm_prime -fflags +nobuffer+genpts  -avioflags direct -flags low_delay   -hide_banner  -f alsa -thread_queue_size 256  -i plughw:CARD=S3,DEV=0  -f v4l2    -i /dev/video0  -c:v h264_v4l2m2m -pix_fmt yuv420p -b:v 1700k -c:a libopus -application lowdelay -b:a 64k  -ar 48000 -f s16le      -f mpegts  - | mpv  --profile=low-latency  --volume=30 -
-
-######################################
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-so only amd64 and i386
-
-sudo apt install libv4l2loopback-dkms
-
-sudo modprobe v4l2loopback video_nr=1 card_label="device number 1" exclusive_caps=1
-v4l2loopback-ctl set-fps 15 /dev/video1
-
-adb -d forward tcp:8080 tcp:8080
-
-ffmpeg  -an -hwaccel auto -hide_banner  -fflags discardcorrupt -rtsp_transport tcp  -i rtsp://127.0.0.1:8080/h264_pcm.sdp    -c:v rawvideo -pix_fmt yuv420p   -f v4l2 /dev/video1
-
--an = audio no is important
-
-
-apt install qv4l2
-
-try it with qv4l2
-
-cheers
- 
