@@ -13,7 +13,7 @@
 
 nvenc + fdkaac +x11grab
        
-       ffmpeg -vsync 0 -hide_banner  -hwaccel cuda -hwaccel_output_format cuda  \
+       ffmpeg -vsync 0 -hide_banner  -hwaccel nvdec -hwaccel_output_format nv12 \
          -f pulse -ac 2 -i alsa_output.usb-Yamaha_Corporation_Steinberg_UR22C-00.pro-output-0.monitor  \
          -f x11grab -r 30  -video_size 1920x1080 -i :0.0+0,0 -c:v h264_nvenc  \
           -bufsize 8M -filter:v scale=720:-1 -b:v 1M  -preset p2 -tune ll  -profile:v  main  -level:v 4.1 -maxrate 2M -qmin 0 -g 250 -bf 3 -b_ref_mode middle -temporal-aq 1 -rc-lookahead 20 -i_qfactor 0.75 -b_qfactor 1.1 \
@@ -21,7 +21,7 @@ nvenc + fdkaac +x11grab
 
 nvenc + opus + x11grab
 
-       ffmpeg -async 1 -hide_banner  -hwaccel cuda -hwaccel_output_format cuda  \
+       ffmpeg -async 1 -hide_banner  -hwaccel nvdec -hwaccel_output_format nv12  \
          -f pulse -ac 2 -i alsa_output.usb-Yamaha_Corporation_Steinberg_UR22C-00.pro-output-0.monitor  \
          -f x11grab -r 30  -video_size 1920x1080 -i :0.0+0,0 -c:v h264_nvenc  \
           -bufsize 8M -filter:v scale=720:-1 -b:v 1M  -preset p2 -tune ll  -profile:v  main  -level:v 4.1 -maxrate 2M -qmin 0 -g 250 -bf 3 -b_ref_mode middle -temporal-aq 1 -rc-lookahead 20 -i_qfactor 0.75 -b_qfactor 1.1 \
