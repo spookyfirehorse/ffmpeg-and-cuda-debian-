@@ -51,6 +51,11 @@ dvd + all subtitles and all audio
  lsdvd
 
 
+       sudo mkdir /dev/dvd 
+       sudo mount /dev/sr0 /dev/dvd
+       
+       
+
        mplayer dvd://3 -dumpstream -dumpfile output.vob
 
 
