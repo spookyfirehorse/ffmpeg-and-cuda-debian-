@@ -59,15 +59,12 @@ Ripping full dvd with all subtitle and all languages
        mplayer dvd://10 -dumpstream -dumpfile output.vob ## now you have the dumpstream for the next step to create a mp4 or inthis case mkv
 
 
-       ffmpeg   -hwaccel cuda -probesize 12000M -analyzeduration 12100M   -hwaccel_output_format nv12 -vsync 0  -i  output.vob  -ss 00:00:02     -metadata title='MYSTERY TRAIN'  -map 0:v -scodec copy   -map 0:s          -c:v h264_nvenc -profile:v high -level 4.1 -preset p5 -tune hq -b:v 3M -bufsize 5M -maxrate 5M -qmin 0 -g 250 -bf 3 -b_ref_mode middle -temporal-aq 1 -rc-lookahead 20 -i_qfactor 0.75 -b_qfactor 1.1  -vf "scale=1280:960:force_original_aspect_ratio=decrease" -c:a libfdk_aac     -b:a 128k -map 0:a -f matroska  output.mkv
+       ffmpeg   -hwaccel cuda -probesize 12000M -analyzeduration 12100M   -hwaccel_output_format nv12 -vsync 0  -i  output.vob  -ss 00:00:02     -metadata title='MYSTERY TRAIN'  -map 0:v -scodec copy   -map 0:s          -c:v h264_nvenc -profile:v high -level 4.1 -preset p5 -tune hq -b:v 3M -bufsize 5M -maxrate 5M -qmin 0 -g 250 -bf 3 -b_ref_mode middle -temporal-aq 1 -rc-lookahead 20 -i_qfactor 0.75 -b_qfactor 1.1 -r 25 -aspect 16:9 -c:a libfdk_aac     -b:a 128k -map 0:a  -f matroska  output.mkv
        
 
 -filter:v scale=1280:-1 -aspect 16:9
 
--vf "scale=1280:960:force_original_aspect_ratio=decrease" 
-
-
-       ffmpeg   -hwaccel cuda  -probesize 12000M -analyzeduration 12100M   -hwaccel_output_format nv12 -vsync 0 -i  /media/moon/Filme/jim-jarmusch/ghost-dog.mkv  -ss 00:00:02  -metadata title='GHOST DOG'  -map 0:v -scodec copy   -map 0:s   -c:v h264_nvenc -preset p5 -tune hq  -profile:v high  -level:v 4.1 -maxrate 2M -qmin 0 -g 250 -bf 3 -b_ref_mode middle -temporal-aq 1 -rc-lookahead 20 -i_qfactor 0.75 -b_qfactor 1.1   - bufsize 5M   -c:a libfdk_aac  -b:a 128k -map 0:a -f mp4  ghost-dog.mp4
+-vf "scale=1280:720:force_original_aspect_ratio=decrease" 
 
 
 android
