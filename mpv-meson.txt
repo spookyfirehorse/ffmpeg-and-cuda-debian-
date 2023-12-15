@@ -6,6 +6,6 @@ meson install -C build
 
 
 meson build
-meson configure build -Dprefix=/usr -Dlibmpv=true -Drpi=disabled -Drpi-mmal=disabled -Degl=enabled -Dwayland=enabled -Degl-wayland=enabled -Dsdl2=enabled -Dvaapi=disabled -Dvdpau=disabled -Dvulkan=enabled -Dlibplacebo=enabled  -Dcuda-interop=disabled -Dvulkan=enabled -Dcuda-hwaccel=disabled -Dshaderc=disabled
+meson configure build -Dprefix=/usr -Dlibmpv=true -Drpi=disabled -Drpi-mmal=disabled -Degl=enabled -Dwayland=enabled -Degl-wayland=enabled -Dsdl2=enabled -Dvaapi=disabled -Dvdpau=disabled -Dvulkan=enabled -Dlibplacebo=enabled -Ddvdnav=enabled -Dcuda-interop=enabled -Dvulkan=enabled -Dcuda-hwaccel=enabled -Dshaderc=enabled -Dzimg=enabled -D-Dzimg=enabled  -Dzlib=enabled -Dpipewire=enabled
 meson compile -C build
 sudo meson install -C build
