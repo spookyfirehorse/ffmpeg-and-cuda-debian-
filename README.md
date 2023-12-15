@@ -52,13 +52,16 @@ dvd + all subtitles and all audio
 Ripping full dvd with all subtitle and all languages
 
 
-       sudo mkdir /dev/dvd 
+       
        sudo mount /dev/sr0 /dev/dvd
-       lsdvd ### look for longest track on the end of output
-       mplayer dvd://10    ##  only looking if this is correct
-       mplayer dvd://10 -dumpstream -dumpfile output.vob ## now you have the dumpstream for the next step to create a mp4 or inthis case mkv
+       lsdvd /dev/sr0 ### look for longest track on the end of output
+       mplayer dvd://3    ##  only looking if this is correct
+       mplayer dvd://3 -dumpstream -dumpfile output.vob ## now you have the dumpstream for the next step to create a mp4 or inthis case mkv
+       mpv dvd://2 --stream-dump=output.vob #mpv count -1 lsdvd
+       vobcopy -t example  -i /dev/sr0 -l  -n 3 -o /media/spooky/storage/
 
-
+Encoding
+       
        ffmpeg   -hwaccel cuda -probesize 12000M -analyzeduration 12100M   -hwaccel_output_format nv12 -vsync 0  -i  output.vob  -ss 00:00:02     -metadata title='MYSTERY TRAIN'  -map 0:v -scodec copy   -map 0:s          -c:v h264_nvenc -profile:v high -level 4.1 -preset p5 -tune hq -b:v 3M -bufsize 5M -maxrate 5M -qmin 0 -g 250 -bf 3 -b_ref_mode middle -temporal-aq 1 -rc-lookahead 20 -i_qfactor 0.75 -b_qfactor 1.1 -r 25 -aspect 16:9 -c:a libfdk_aac     -b:a 128k -map 0:a  -f matroska  output.mkv
        
 
