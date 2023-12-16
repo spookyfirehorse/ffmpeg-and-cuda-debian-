@@ -61,14 +61,14 @@ Ripping full dvd with all subtitle and all languages
        vobcopy -t example  -i /dev/sr0 -l  -n 3 -o /media/spooky/storage/
 
 
-dd copy hole dvd best way to be secure
+dd copy hole dvd !!! 
  
        dd if=/dev/sr0 of=/media/spooky/store/down-by-low.img bs=2048  status-progress
 or 
 
        ddrescue -b2048 /dev/sr0 /media/spooky/store/night-on-earth.img mapfile
        
-mpv        take the movie out
+mpv       copy to .vob
 
        mpv dvdnav:// --dvd-device=/media/spooky/store/down-by-low.img --stream-dump=/media/spooky/store/dow-by-low.vob
 
