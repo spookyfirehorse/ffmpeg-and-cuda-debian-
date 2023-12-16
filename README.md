@@ -65,6 +65,7 @@ dd copy hole dvd best way to be secure
  
        dd if=/dev/sr0 of=/media/spooky/store/down-by-low.img bs=2048  status-progress
 or 
+
        ddrescue -b2048 /dev/sr0 /media/spooky/store/night-on-earth.img mapfile
        
 mpv        take the movie out
