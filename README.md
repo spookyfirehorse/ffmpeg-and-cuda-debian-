@@ -60,6 +60,14 @@ Ripping full dvd with all subtitle and all languages
        mpv dvd://2 --stream-dump=output.vob #mpv count -1 lsdvd
        vobcopy -t example  -i /dev/sr0 -l  -n 3 -o /media/spooky/storage/
 
+
+dd copy hole dvd best way to be secure
+ 
+       dd if=/dev/sr0 of=/media/spooky/store/down-by-low.img bs=1M status-progress
+mpv        take the movie out
+
+       mpv dvdnav:// --dvd-device=/media/spooky/store/down-by-low.img --stream-dump=/media/spooky/store/dow-by-low.vob
+
 Encoding
        
        ffmpeg   -hwaccel cuda -probesize 12000M -analyzeduration 12100M   -hwaccel_output_format nv12 -vsync 0  -i  output.vob  -ss 00:00:02     -metadata title='MYSTERY TRAIN'  -map 0:v -scodec copy   -map 0:s          -c:v h264_nvenc -profile:v high -level 4.1 -preset p5 -tune hq -b:v 3M -bufsize 5M -maxrate 5M -qmin 0 -g 250 -bf 3 -b_ref_mode middle -temporal-aq 1 -rc-lookahead 20 -i_qfactor 0.75 -b_qfactor 1.1 -r 25 -aspect 16:9 -c:a libfdk_aac     -b:a 128k -map 0:a  -f matroska  output.mkv
