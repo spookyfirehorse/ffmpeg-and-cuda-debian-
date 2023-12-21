@@ -72,22 +72,21 @@ now you neeed the .IFO file for your movie
 
 so you heave to copy the file in your home directory default.IFO
 
+sudo cp /dev/dvd/VTS_07_0.IFO default.IFO  VTS_07_0.IFO is just an example look in /dev/dvd/VIDEO_TS/ for the biggerst files and the IFO file before and copy it to default.IFO
+
+so now the finsh
+
+copy this script below and run it scriptname fgfdgdgd.vob
+
+you see in this script  ifo_palette thats for the subtitle  default.IFO
+
+maybe you heave to set cnvas size to your movie resolution 
+
        #!/bin/bash
        for file in "$1"; do   ffmpeg   -hwaccel cuda -probesize 1200M -analyzeduration 1210M   -hwaccel_output_format nv12 -ifo_palette default.IFO    \
         -canvas_size 720x576  -i "$file"  -ss 00:00:02     -metadata title="$file"  -map 0:v -scodec dvdsub  \
-         -map 0:s  -metadata:s:s:0 language=deu   -c:v hevc_nvenc -profile:v main10  -level 5.2 -preset p5 -tune hq -b:v 3M -maxrate 5M   -qmin 0 -g 250 -rc-lookahead 20 -aspect 16:9  -r 25 \
-         -c:a libfdk_aac  -b:a 128k  -map 0:a:0 -metadata:s:a:1 language=en   -f matroska  "${file%.*}.mkv"; done
-
-
-
-Encoding
-       
-       ffmpeg   -hwaccel cuda -probesize 12000M -analyzeduration 12100M   -hwaccel_output_format nv12 -vsync 0  -i  output.vob  -ss 00:00:02     -metadata title='MYSTERY TRAIN'  -map 0:v -scodec copy   -map 0:s          -c:v h264_nvenc -profile:v high -level 4.1 -preset p5 -tune hq -b:v 3M -bufsize 5M -maxrate 5M -qmin 0 -g 250 -bf 3 -b_ref_mode middle -temporal-aq 1 -rc-lookahead 20 -i_qfactor 0.75 -b_qfactor 1.1 -r 25 -aspect 16:9 -c:a libfdk_aac     -b:a 128k -map 0:a  -f matroska  output.mkv
-       
-
--filter:v scale=1280:-1 -aspect 16:9
-
--vf "scale=1280:720:force_original_aspect_ratio=decrease" 
+         -map 0:s     -c:v hevc_nvenc -profile:v main10  -level 5.2 -preset p5 -tune hq -b:v 3M -maxrate 5M   -qmin 0 -g 250 -rc-lookahead 20 -aspect 16:9   \
+         -c:a libfdk_aac  -b:a 128k  -map 0:a  -f matroska  "${file%.*}.mkv"; done
 
 
 android
