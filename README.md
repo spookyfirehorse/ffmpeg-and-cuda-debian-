@@ -12,6 +12,13 @@
 
 
 nvenc + fdkaac +x11grab
+
+you need the sound card alsa output 
+
+you getting by 
+
+              pactl list | grep -A2 'Source #' | grep 'Name: '
+
        
        ffmpeg -async 1 -hide_banner  -hwaccel nvdec -hwaccel_output_format nv12 \
          -f pulse -ac 2 -i alsa_output.usb-Yamaha_Corporation_Steinberg_UR22C-00.pro-output-0.monitor  \
