@@ -83,12 +83,19 @@ so you heave to copy the file in your home directory named default.IFO
                ls -lah dvd/VIDEO_TS/
 
 -r--r--r-- 1 nobody nogroup  44K  7. Feb 2036  VTS_07_0.IFO
+
 -r--r--r-- 1 nobody nogroup 9,7M  7. Feb 2036  VTS_07_0.VOB
+
 -r--r--r-- 1 nobody nogroup 1,0G  7. Feb 2036  VTS_07_1.VOB
+
 -r--r--r-- 1 nobody nogroup 1,0G  7. Feb 2036  VTS_07_2.VOB
+
 -r--r--r-- 1 nobody nogroup 1,0G  7. Feb 2036  VTS_07_3.VOB
+
 -r--r--r-- 1 nobody nogroup 1,0G  7. Feb 2036  VTS_07_4.VOB
+
  -r--r--r-- 1 nobody nogroup 1,0G  7. Feb 2036  VTS_07_5.VOB
+ 
  -r--r--r-- 1 nobody nogroup 251M  7. Feb 2036  VTS_07_6.VOB
 
 
