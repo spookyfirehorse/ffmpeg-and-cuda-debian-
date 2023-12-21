@@ -76,29 +76,34 @@ mpv       copy to .vob without nr = default movie
 
 now you heave the vob file
 
-now you neeed the .IFO file for your movie 
+now you neeed the .IFO file for your movie for the subtitle
 
-so you heave to copy the file in your home directory default.IFO
+so you heave to copy the file in your home directory named default.IFO
 
                ls -lah dvd/VIDEO_TS/
 
-              -r--r--r-- 1 nobody nogroup  44K  7. Feb 2036  VTS_07_0.IFO
-              -r--r--r-- 1 nobody nogroup 9,7M  7. Feb 2036  VTS_07_0.VOB
-              -r--r--r-- 1 nobody nogroup 1,0G  7. Feb 2036  VTS_07_1.VOB
-              -r--r--r-- 1 nobody nogroup 1,0G  7. Feb 2036  VTS_07_2.VOB
-              -r--r--r-- 1 nobody nogroup 1,0G  7. Feb 2036  VTS_07_3.VOB
-              -r--r--r-- 1 nobody nogroup 1,0G  7. Feb 2036  VTS_07_4.VOB
-              -r--r--r-- 1 nobody nogroup 1,0G  7. Feb 2036  VTS_07_5.VOB
-              -r--r--r-- 1 nobody nogroup 251M  7. Feb 2036  VTS_07_6.VOB
+-r--r--r-- 1 nobody nogroup  44K  7. Feb 2036  VTS_07_0.IFO
+-r--r--r-- 1 nobody nogroup 9,7M  7. Feb 2036  VTS_07_0.VOB
+-r--r--r-- 1 nobody nogroup 1,0G  7. Feb 2036  VTS_07_1.VOB
+-r--r--r-- 1 nobody nogroup 1,0G  7. Feb 2036  VTS_07_2.VOB
+-r--r--r-- 1 nobody nogroup 1,0G  7. Feb 2036  VTS_07_3.VOB
+-r--r--r-- 1 nobody nogroup 1,0G  7. Feb 2036  VTS_07_4.VOB
+ -r--r--r-- 1 nobody nogroup 1,0G  7. Feb 2036  VTS_07_5.VOB
+ -r--r--r-- 1 nobody nogroup 251M  7. Feb 2036  VTS_07_6.VOB
 
 
 and looking for 1 gb files
 
+
 the IFO file before is the right one 
+
+
 
 in this case
 
+
        sudo cp /dev/dvd/VTS_07_0.IFO default.IFO  
+
 
 so now the finsh
 
@@ -112,7 +117,7 @@ copy and past in
          -map 0:s     -c:v hevc_nvenc -profile:v main10  -level 5.2 -preset p5 -tune hq -b:v 3M -maxrate 5M   -qmin 0 -g 250 -rc-lookahead 20 -aspect 16:9   \
          -c:a libfdk_aac  -b:a 128k  -map 0:a  -f matroska  "${file%.*}.mkv"; done
 
-maybe you heave to set cnvas size to your movie resolution 
+maybe you heave to set cnvas size to your movie resolution in the script -canvas_size 720x576 to correct the right place
 
               sudo cp example.sh /usr/local/bin/
 
