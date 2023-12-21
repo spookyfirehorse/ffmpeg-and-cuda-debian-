@@ -27,7 +27,7 @@ nvenc + opus + x11grab
           -bufsize 8M -filter:v scale=720:-1 -b:v 1M  -preset p2 -tune ll  -profile:v  main  -level:v 4.1 -maxrate 2M -qmin 0 -g 250 -bf 3 -b_ref_mode middle -temporal-aq 1 -rc-lookahead 20 -i_qfactor 0.75 -b_qfactor 1.1 \
          -c:a libopus  -b:a 64k  -application lowdelay  -ar 48000   -f rtsp rtsp://localhost:8559/mystream
 
-nvenc + fdkaac +stream input
+nvenc + fdkaac +stream input +stream output
 
        ffmpeg  -re  -fflags -vsync 0   -hwaccel nvdec -hwaccel_output_format nv12  -i  https://stv-live.akamaized.net/hls/live/2031011/lingeoSTVATwebPri/master_6692.m3u8  -hide_banner    \
          -vcodec h264_nvenc -bufsize 8M -filter:v scale=720:-1 -b:v 1M  -preset p2 -tune ll  -profile:v  main  -level:v 4.1 -maxrate 2M -qmin 0 -g 250 -bf 3 -b_ref_mode middle -temporal-aq 1 -rc-lookahead 20 -i_qfactor 0.75        -b_qfactor 1.1 -c:a libfdk_aac -profile:a aac_he -b:a 64k  -threads 4  -f rtsp -rtsp_transport tcp  rtsp://localhost:8559/mystream
@@ -61,16 +61,24 @@ Ripping full dvd with all subtitle and all languages
        vobcopy -t example  -i /dev/sr0 -l  -n 3 -o /media/spooky/storage/
 
 
-dd copy hole dvd !!! 
- 
-       dd if=/dev/sr0 of=/media/spooky/store/down-by-low.img bs=2048  status-progress
-or 
 
-       ddrescue -b2048 /dev/sr0 /media/spooky/store/night-on-earth.img mapfile
-       
-mpv       copy to .vob
+mpv       copy to .vob without nr = default movie
 
        mpv dvdnav:// --dvd-device=/media/spooky/store/down-by-low.img --stream-dump=/media/spooky/store/dow-by-low.vob
+
+now you heave the vob file
+
+now you neeed the .IFO file for your movie 
+
+so you heave to copy the file in your home directory default.IFO
+
+       #!/bin/bash
+       for file in "$1"; do   ffmpeg   -hwaccel cuda -probesize 1200M -analyzeduration 1210M   -hwaccel_output_format nv12 -ifo_palette default.IFO    \
+        -canvas_size 720x576  -i "$file"  -ss 00:00:02     -metadata title="$file"  -map 0:v -scodec dvdsub  \
+         -map 0:s  -metadata:s:s:0 language=deu   -c:v hevc_nvenc -profile:v main10  -level 5.2 -preset p5 -tune hq -b:v 3M -maxrate 5M   -qmin 0 -g 250 -rc-lookahead 20 -aspect 16:9  -r 25 \
+         -c:a libfdk_aac  -b:a 128k  -map 0:a:0 -metadata:s:a:1 language=en   -f matroska  "${file%.*}.mkv"; done
+
+
 
 Encoding
        
