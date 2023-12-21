@@ -80,23 +80,47 @@ now you neeed the .IFO file for your movie
 
 so you heave to copy the file in your home directory default.IFO
 
-sudo cp /dev/dvd/VTS_07_0.IFO default.IFO  VTS_07_0.IFO is just an example look in /dev/dvd/VIDEO_TS/ for the biggerst files and the IFO file before and copy it to default.IFO
+               ls -lah dvd/VIDEO_TS/
+
+              -r--r--r-- 1 nobody nogroup  44K  7. Feb 2036  VTS_07_0.IFO
+              -r--r--r-- 1 nobody nogroup 9,7M  7. Feb 2036  VTS_07_0.VOB
+              -r--r--r-- 1 nobody nogroup 1,0G  7. Feb 2036  VTS_07_1.VOB
+              -r--r--r-- 1 nobody nogroup 1,0G  7. Feb 2036  VTS_07_2.VOB
+              -r--r--r-- 1 nobody nogroup 1,0G  7. Feb 2036  VTS_07_3.VOB
+              -r--r--r-- 1 nobody nogroup 1,0G  7. Feb 2036  VTS_07_4.VOB
+              -r--r--r-- 1 nobody nogroup 1,0G  7. Feb 2036  VTS_07_5.VOB
+              -r--r--r-- 1 nobody nogroup 251M  7. Feb 2036  VTS_07_6.VOB
+
+
+and looking for 1 gb files
+
+the IFO file before is the right one 
+
+in this case
+
+       sudo cp /dev/dvd/VTS_07_0.IFO default.IFO  
 
 so now the finsh
 
-copy this script below and run it scriptname fgfdgdgd.vob
+       nano example.sh
 
-you see in this script  ifo_palette thats for the subtitle  default.IFO
+copy and past in     
 
-maybe you heave to set cnvas size to your movie resolution 
-
-       #!/bin/bash
+        #!/bin/bash
        for file in "$1"; do   ffmpeg   -hwaccel cuda -probesize 1200M -analyzeduration 1210M   -hwaccel_output_format nv12 -ifo_palette default.IFO    \
         -canvas_size 720x576  -i "$file"  -ss 00:00:02     -metadata title="$file"  -map 0:v -scodec dvdsub  \
          -map 0:s     -c:v hevc_nvenc -profile:v main10  -level 5.2 -preset p5 -tune hq -b:v 3M -maxrate 5M   -qmin 0 -g 250 -rc-lookahead 20 -aspect 16:9   \
          -c:a libfdk_aac  -b:a 128k  -map 0:a  -f matroska  "${file%.*}.mkv"; done
 
+maybe you heave to set cnvas size to your movie resolution 
 
+              sudo cp example.sh /usr/local/bin/
+
+and run
+
+       example.sh movie.vob
+
+       
 android
 
        ffmpeg   -hwaccel cuda -hwaccel_output_format nv12   -fflags +genpts+nobuffer+discardcorrupt   -hide_banner -rtsp_transport tcp   -i rtsp://127.0.0.1:8080/h264_pcm.sdp -c:v h264_nvenc -b:v 1M  -preset p1 -tune ll       -c:a libopus  -b:a 64k  -application lowdelay  -ar 48000  -f rtsp -rtsp_transport tcp  rtsp://localhost:8559/mystream
