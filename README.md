@@ -72,7 +72,7 @@ Ripping full dvd with all subtitle and all languages
 
 mpv       copy to .vob without nr = default movie
 
-       mpv dvdnav:// --dvd-device=/media/spooky/store/down-by-low.img --stream-dump=/media/spooky/store/dow-by-low.vob
+       mpv dvdnav:// --dvd-device=/media/spooky/store/down-by-low.img --stream-dump=/media/spooky/store/output.vob
 
 now you heave the vob file
 
@@ -126,11 +126,15 @@ copy and past in
 
 maybe you heave to set cnvas size to your movie resolution in the script -canvas_size 720x576 to correct the right place
 
-              sudo cp example.sh /usr/local/bin/
+              sudo cp ripping-dvd.sh /usr/local/bin/
 
 and run
 
-       example.sh movie.vob
+       ripping-dvd.sh output.vob
+
+play it
+
+         mpv output.mkv
 
        
 android
