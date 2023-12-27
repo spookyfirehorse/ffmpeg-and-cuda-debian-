@@ -1,3 +1,6 @@
+build cuda nvenc nvdec usw for ffmpeg
+       
+       
        sudo apt build-dep ffmpeg mpv
        
        apt source ffmpeg mpv 
