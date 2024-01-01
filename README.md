@@ -77,7 +77,7 @@ Ripping full dvd with all subtitle and all languages
 
 mpv       copy to .vob without nr = default movie
 
-       mpv dvdnav:// --dvd-device=/media/spooky/store/down-by-low.img --stream-dump=/media/spooky/store/output.vob
+       mpv dvdnav:// --dvd-device=/media/spooky/store/down-by-low.img --stream-dump=output.vob
 
 now you heave the vob file
 
