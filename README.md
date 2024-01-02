@@ -1,6 +1,6 @@
 build cuda nvenc nvdec usw for ffmpeg
        
-       sudo nano /etc/apt/sources.list.d/cuda-debian11-x86_64.list
+       sudo nano /etc/apt/sources.list.d/cuda-debian12-x86_64.list
        deb [signed-by=/usr/share/keyrings/cuda-archive-keyring.gpg] https://developer.download.nvidia.com/compute/cuda/repos/debian12/x86_64/ / 
        sudo apt install cuda
        sudo apt install libfdk*
