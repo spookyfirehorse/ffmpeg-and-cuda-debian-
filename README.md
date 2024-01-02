@@ -154,7 +154,7 @@ h264 mkv
          -c:a libfdk_aac  -b:a 128k  -map 0:a  -f matroska  "${file%.*}.mkv"; done
 
 
-for coruppted files
+for corrupted files
 
               
               
