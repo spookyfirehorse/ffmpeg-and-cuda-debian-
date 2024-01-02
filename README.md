@@ -77,7 +77,7 @@ by hand if you want special tracks or longest
 
 
 
-or simply
+or simply iso img you can make an img with k3b go to copy medium and select only img
 
 
        mpv dvdnav:// --cache=no --dvd-device=/media/spooky/store/down-by-low.img --stream-dump=output.vob
