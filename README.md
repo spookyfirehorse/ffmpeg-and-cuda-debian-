@@ -145,10 +145,15 @@ copy and past in
          -map 0:s     -c:v hevc_nvenc -profile:v main10  -level 5.2 -preset p5 -tune hq -b:v 3M -maxrate 5M   -qmin 0 -g 250 -rc-lookahead 20 -aspect 16:9   \
          -c:a libfdk_aac  -b:a 128k  -map 0:a  -f matroska  "${file%.*}.mkv"; done
 
-separate audio and subtitles for corrupt files
+separate audio and specific  subtitles for corrupt files
 
 
-       ffmpeg  -probesize 5400M -analyzeduration 5410M -fflags +genpts+igndts -ifo_palette default.IFO  -canvas_size  720x576    -i only_lovers_left_alive2.vob   -c:a libfdk_aac -b:a 128k    -map 0:a:1 -map 0:a:2 -map 0:a:3  -scodec dvdsub   -map 0:s:3 -map 0:s:2  -map 0:s -vn  -f mp4    test.mp4
+       ffmpeg  -probesize 5400M -analyzeduration 5410M -fflags +genpts+igndts -ifo_palette default.IFO  -canvas_size  720x576    -i only_lovers_left_alive2.vob   -c:a libfdk_aac -b:a 128k    -map 0:a:1 -map 0:a:2 -map 0:a:3  -scodec dvdsub   -map 0:s:3 -map 0:s:2   -vn  -f mp4    test.mp4
+
+separate audio and all subtitles for corrupt files
+
+
+        ffmpeg  -probesize 5400M -analyzeduration 5410M -fflags +genpts+igndts -ifo_palette default.IFO  -canvas_size  720x576    -i only_lovers_left_alive2.vob   -c:a libfdk_aac -b:a 128k    -map 0:a -scodec dvdsub    -map 0:s -vn  -f mp4    test.mp
 
 seperate video
 
