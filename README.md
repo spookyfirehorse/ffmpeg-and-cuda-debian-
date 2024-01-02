@@ -84,7 +84,7 @@ or simply iso img you can make an img with k3b go to copy medium and select only
 
 
        
-       mpv dvdnav:// --cache=no --dvd-device=/media/spooky/store/down-by-low.img --stream-dump=output.vob
+       mpv dvdnav://2 --cache=no --dvd-device=/media/spooky/store/down-by-low.img --stream-dump=output.vob
 
 
 
@@ -92,7 +92,7 @@ or simply iso img you can make an img with k3b go to copy medium and select only
 or simply dvd
 
 
-       mpv dvdnav:// --cache=no --dvd-device=/dev/sr0 --stream-dump=output.vob
+       mpv dvdnav://2 --cache=no --dvd-device=/dev/sr0 --stream-dump=output.vob
 
        
 now you heave the vob file
