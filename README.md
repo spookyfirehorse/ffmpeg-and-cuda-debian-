@@ -64,6 +64,8 @@ dvd + all subtitles and all audio
  
 Ripping full dvd with all subtitle and all languages
 
+by hand if you want special tracks or longest
+
 
        
        sudo mount /dev/sr0 /dev/dvd
@@ -75,9 +77,11 @@ Ripping full dvd with all subtitle and all languages
 
 
 
-mpv       copy to .vob without nr = default movie
+or simply
 
-       mpv dvdnav:// --dvd-device=/media/spooky/store/down-by-low.img --stream-dump=output.vob
+
+       mpv dvdnav:// --cache=no --dvd-device=/media/spooky/store/down-by-low.img --stream-dump=output.vob
+
 
 now you heave the vob file
 
