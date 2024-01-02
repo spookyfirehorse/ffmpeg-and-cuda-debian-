@@ -80,7 +80,11 @@ by hand if you want special tracks or longest
 or simply iso img you can make an img with k3b go to copy medium and select only img
 
 
+
+       
        mpv dvdnav:// --cache=no --dvd-device=/media/spooky/store/down-by-low.img --stream-dump=output.vob
+
+
 
 
 or simply dvd
@@ -89,8 +93,6 @@ or simply dvd
        mpv dvdnav:// --cache=no --dvd-device=/dev/sr0 --stream-dump=output.vob
 
        
-
-
 now you heave the vob file
 
 now you neeed the .IFO file for your movie for the subtitle
