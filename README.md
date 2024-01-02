@@ -145,6 +145,20 @@ copy and past in
          -map 0:s     -c:v hevc_nvenc -profile:v main10  -level 5.2 -preset p5 -tune hq -b:v 3M -maxrate 5M   -qmin 0 -g 250 -rc-lookahead 20 -aspect 16:9   \
          -c:a libfdk_aac  -b:a 128k  -map 0:a  -f matroska  "${file%.*}.mkv"; done
 
+separate audio and subtitles for corrupt files
+
+
+       ffmpeg  -probesize 5400M -analyzeduration 5410M -fflags +genpts+igndts -ifo_palette default.IFO  -canvas_size  720x576    -i only_lovers_left_alive2.vob   -c:a libfdk_aac -b:a 128k    -map 0:a:1 -map 0:a:2 -map 0:a:3  -scodec dvdsub   -map 0:s:3 -map 0:s:2  -map 0:s -vn  -f mp4    test.mp4
+
+seperate video
+
+         ffmpeg -y   -fflags +genpts+igndts    -hwaccel cuda  -probesize 5400M -analyzeduration 5410M   -hwaccel_output_format nv12  -i testv.mpeg   -c:v h264_nvenc -profile:v high  -level 4.2 -preset p5 -tune hq   -b:v 3M -bufsize 5M -maxrate 4M -qmin 0 -g 250 -bf 3 -b_ref_mode middle -temporal-aq 1 -rc-lookahead 20 -i_qfactor 0.75 -b_qfactor 1.1  -aspect 16:9  -an    -f matroska  testv.mkv
+
+muxing together
+
+         ffmpeg -fflags +genpts -i testv.mkv  -i test.mp4  -c:v copy -c:a copy -c:s copy  -map 0:v -map 1:a    -map 1:s  -f matroska output.mkv
+
+
 maybe you heave to set cnvas size to your movie resolution in the script -canvas_size 720x576 to correct the right place
 
               sudo cp ripping-dvd.sh /usr/local/bin/
