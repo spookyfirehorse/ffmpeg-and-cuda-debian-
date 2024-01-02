@@ -1,4 +1,4 @@
-build cuda nvenc nvdec usw for ffmpeg
+xbuild cuda nvenc nvdec usw for ffmpeg
        
        sudo nano /etc/apt/sources.list.d/cuda-debian12-x86_64.list
        deb [signed-by=/usr/share/keyrings/cuda-archive-keyring.gpg] https://developer.download.nvidia.com/compute/cuda/repos/debian12/x86_64/ / 
@@ -158,7 +158,7 @@ for corrupted files
 
               
               
-              ffmpeg -y   -fflags +genpts+igndts    -hwaccel cuda  -probesize 5400M -analyzeduration 5410M   -hwaccel_output_format nv12 -forced_subs_only 0  -ifo_palette default.IFO   -canvas_size  720x576  -i example.vob  -metadata title="example"  -map 0:v -scodec dvdsub   -map 0:s:2  -map 0:s:3    -c:v h264_nvenc -profile:v high  -level 4.2 -preset p5 -tune hq  -b:v 3M -bufsize 5M -maxrate 4M -qmin 0 -g 250 -bf 3 -b_ref_mode middle -temporal-aq 1 -rc-lookahead 20 -i_qfactor 0.75 -b_qfactor 1.1  -aspect 16:9   -c:a libfdk_aac -b:a 128k   -map 0:a:1 -map 0:a:2 -map 0:a:3    -af volume=1.5 -avoid_negative_ts 1   -max_interleave_delta 0   -f matroska  "${file%.*}2.mkv"; done
+              ffmpeg -y   -fflags +genpts+igndts    -hwaccel cuda  -probesize 5400M -analyzeduration 5410M   -hwaccel_output_format nv12 -forced_subs_only 0  -ifo_palette default.IFO   -canvas_size  720x576  -i example.vob  -metadata title="example"  -map 0:v -scodec dvdsub   -map 0:s:2  -map 0:s:3    -c:v h264_nvenc -profile:v high  -level 4.2 -preset p5 -tune hq  -b:v 3M -bufsize 5M -maxrate 4M -qmin 0 -g 250 -bf 3 -b_ref_mode middle -temporal-aq 1 -rc-lookahead 20 -i_qfactor 0.75 -b_qfactor 1.1  -aspect 16:9   -c:a libfdk_aac -b:a 128k   -map 0:a:1 -map 0:a:2 -map 0:a:3    -af volume=1.5 -avoid_negative_ts 1   -max_interleave_delta 0   -f matroska  example.mkv
 
 
 or
