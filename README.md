@@ -74,6 +74,8 @@ by hand if you want special tracks or longest
        mplayer dvd://3 -dumpstream -dumpfile output.vob ## now you have the dumpstream for the next step to create a mp4 or inthis case mkv
        mpv dvd://2 --stream-dump=output.vob #mpv count -1 lsdvd
        vobcopy -t example  -i /dev/sr0 -l  -n 3 -o /media/spooky/storage/
+       dvdbackup -i  /dev/sr0 -n examplename  -t 2 -p  -o /home/spooky/
+
 
 
 
