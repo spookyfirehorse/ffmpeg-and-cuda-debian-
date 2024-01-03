@@ -74,8 +74,8 @@ by hand if you want special tracks or longest
        mpv dvd://2 --stream-dump=output.vob #mpv count -1 lsdvd
        vobcopy -t example  -i /dev/sr0 -l  -n 3 -o /media/spooky/storage/
        dvdbackup -i  /dev/sr0 -n examplename  -t 2 -p  -o /home/spooky/
-
-
+       mencoder dvdnav://2 -nocache -dvd-device  /media/storage/only_lovers_left_alive.iso -o /dev/null | grep aid 
+       mencoder dvdnav://2 -nocache -dvd-device  /media/storage/only_lovers_left_alive.iso -o /dev/null | grep sid 
 
 
 or simply iso img you can make an img with k3b go to copy medium and select only img
