@@ -76,7 +76,7 @@ by hand if you want special tracks or longest
        dvdbackup -i  /dev/sr0 -n examplename  -t 2 -p  -o /home/spooky/
        mencoder dvdnav://2 -nocache -dvd-device  /media/storage/only_lovers_left_alive.iso -o /dev/null | grep aid 
        mencoder dvdnav://2 -nocache -dvd-device  /media/storage/only_lovers_left_alive.iso -o /dev/null | grep sid 
-
+       sudo lsdvd -t 3 -x  /dev/sr0
 
 or simply iso img you can make an img with k3b go to copy medium and select only img
 
