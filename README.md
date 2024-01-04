@@ -180,12 +180,12 @@ separate subtitle only
 separate audio and specific  subtitles for corrupt files
 
 
-       ffmpeg  -probesize 1400M -analyzeduration 1410M -fflags +genpts+igndts -ifo_palette default.IFO -fix_sub_duration -canvas_size  720x576    -i only_lovers_left_alive2.vob   -c:a libfdk_aac -b:a 128k    -map 0:a:1 -map 0:a:2 -map 0:a:3  -scodec dvdsub   -map 0:s:3 -map 0:s:2   -vn  -f mp4    test.mp4
+       ffmpeg  -probesize 1400M -analyzeduration 1410M -fflags +genpts+igndts -ifo_palette default.IFO -fix_sub_duration -canvas_size  720x576    -i only_lovers_left_alive2.vob   -c:a libfdk_aac -b:a 128k    -map 0:a:1 -map 0:a:2 -map 0:a:3  -scodec dvdsub   -map 0:s:3 -map 0:s:2   -vn  -f matroska    test.mkv
 
 separate audio and all subtitles for corrupt files
 
 
-        ffmpeg  -probesize 1400M -analyzeduration 1410M -fflags +genpts+igndts -ifo_palette default.IFO -fix_sub_duration -canvas_size  720x576    -i only_lovers_left_alive2.vob   -c:a libfdk_aac -b:a 128k    -map 0:a -scodec dvdsub    -map 0:s -vn  -f mp4    test.mp
+        ffmpeg  -probesize 1400M -analyzeduration 1410M -fflags +genpts+igndts -ifo_palette default.IFO -fix_sub_duration -canvas_size  720x576    -i only_lovers_left_alive2.vob   -c:a libfdk_aac -b:a 128k    -map 0:a -scodec dvdsub    -map 0:s -vn  -f matroska    test.mkv
 
 seperate video
 
@@ -193,7 +193,7 @@ seperate video
 
 muxing together
 
-         ffmpeg -fflags +genpts -i testv.mkv  -i test.mp4  -c:v copy -c:a copy -c:s copy  -map 0:v -map 1:a    -map 1:s  -f matroska output.mkv
+         ffmpeg -fflags +genpts -i testv.mkv  -i test.mkv  -c:v copy -c:a copy -c:s copy  -map 0:v -map 1:a    -map 1:s  -f matroska output.mkv
 
 
 maybe you heave to set cnvas size to your movie resolution in the script -canvas_size 720x576 to correct the right place
