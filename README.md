@@ -161,6 +161,10 @@ for corrupted files
 
 
 or
+
+separate subtitle only
+
+              mencoder <VOBFILE> -nosound -ovc frameno -o /dev/null -vobsuboutindex 0 -sid 0 -vobsubout <SUBFILE>
          
 
 separate audio and specific  subtitles for corrupt files
