@@ -4,7 +4,7 @@
        sudo apt purge  ocl-icd-libopencl1 ocl-icd-opencl-dev
        sudo apt install nvidia-cuda-toolkit
        sudo apt install libfdk* 
-       git clone -b sdk/12.0 https://github.com/FFmpeg/nv-codec-headers.git  && cd nv-codec-headers && make &&sudo make install
+       optional ##   git clone -b sdk/12.0 https://github.com/FFmpeg/nv-codec-headers.git  && cd nv-codec-headers && make &&sudo make install
        
 and cd to ffmpeg
        
