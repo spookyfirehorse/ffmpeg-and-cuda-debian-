@@ -67,7 +67,9 @@ Ripping full dvd with all subtitle and all languages
 
 by hand if you want special tracks or longest
 
+make an iso img
 
+       ddrescue -b 2048 -n -v /dev/sr0 dvd.iso 
        
        sudo mount /dev/sr0 /dev/dvd
        lsdvd /dev/sr0 ### look for longest track on the end of output
