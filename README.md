@@ -19,7 +19,7 @@ and cd to ffmpeg
 
 nvenc + fdkaac +x11grab
 
-you need the sound card alsa output 
+you need the sound card alsa output monitor
 
 you getting by 
 
