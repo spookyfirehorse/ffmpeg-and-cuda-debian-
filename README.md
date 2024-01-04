@@ -69,26 +69,31 @@ by hand if you want special tracks or longest
 
 make an iso img
 
-       ddrescue -b 2048 -n -v /dev/sr0 dvd.iso 
-       
+       ddrescue -b 2048 -n -v /dev/sr0 output.iso 
+
+
+
        sudo mount /dev/sr0 /dev/dvd
        lsdvd /dev/sr0 ### look for longest track on the end of output
-       mplayer dvdnav://3 -nocache -dvd-device  input.iso  -dumpstream -dumpfile output.vob
-       mplayer dvdnav://3 -nocache -dvd-device  /dev/sr0  -dumpstream -dumpfile output.vob
-       mplayer dvdnav://3 -nocache -dumpstream -dumpfile output.vob ## now you have the dumpstream for the next step to create a mp4 or inthis case mkv
+       mplayer dvd://3 -nocache -dvd-device  output.iso  -dumpstream -dumpfile output.vob
+       mplayer dvd://3 -nocache -dvd-device  /dev/sr0  -dumpstream -dumpfile output.vob
+       mplayer dvd://3 -nocache -dumpstream -dumpfile output.vob 
+       
+   ## 
+       
        mpv dvdnav://2 --cache=no --dvd-speed=2 --stream-dump=output.vob #mpv count -1 lsdvd
-       vobcopy -t example  -i /dev/sr0 -l  -n 3 -o /media/spooky/storage/
+       vobcopy -t example  -i /dev/sr0 -l  -n 2 -o /media/spooky/storage/
        dvdbackup -i  /dev/sr0 -n examplename  -t 2 -p  -o /home/spooky/
-       mencoder dvdnav://2 -nocache -dvd-device  /media/storage/only_lovers_left_alive.iso -o /dev/null | grep aid 
-       mencoder dvdnav://2 -nocache -dvd-device  /media/storage/only_lovers_left_alive.iso -o /dev/null | grep sid 
+       mencoder dvd://2 -nocache -dvd-device  /media/storage/output.iso -o /dev/null | grep aid 
+       mencoder dvd://2 -nocache -dvd-device  /media/storage/output.iso -o /dev/null | grep sid 
        sudo lsdvd -t 3 -x  /dev/sr0
 
-or simply iso img you can make an img with k3b go to copy medium and select only img
+or simply from iso 
 
 
 
        
-       mpv dvdnav://2 --cache=no --dvd-speed=4  --dvd-device=/media/spooky/store/down-by-low.img --stream-dump=output.vob
+       mpv dvd://2 --cache=no --dvd-speed=4  --dvd-device=output.iso --stream-dump=output.vob
 
 
 
@@ -96,7 +101,7 @@ or simply iso img you can make an img with k3b go to copy medium and select only
 or simply dvd
 
 
-       mpv dvdnav://2 --cache=no --dvd-device=/dev/sr0 --stream-dump=output.vob
+       mpv dvdnav:// --cache=no --dvd-device=/dev/sr0 --stream-dump=output.vob
 
        
 now you heave the vob file
