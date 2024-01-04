@@ -72,7 +72,7 @@ by hand if you want special tracks or longest
        mplayer dvdnav://3 -nocache -dvd-device  input.iso  -dumpstream -dumpfile output.vob
        mplayer dvdnav://3 -nocache -dvd-device  /dev/sr0  -dumpstream -dumpfile output.vob
        mplayer dvdnav://3 -nocache -dumpstream -dumpfile output.vob ## now you have the dumpstream for the next step to create a mp4 or inthis case mkv
-       mpv dvdnav://2 --stream-dump=output.vob #mpv count -1 lsdvd
+       mpv dvdnav://2 --cache=no --dvd-speed=2 --stream-dump=output.vob #mpv count -1 lsdvd
        vobcopy -t example  -i /dev/sr0 -l  -n 3 -o /media/spooky/storage/
        dvdbackup -i  /dev/sr0 -n examplename  -t 2 -p  -o /home/spooky/
        mencoder dvdnav://2 -nocache -dvd-device  /media/storage/only_lovers_left_alive.iso -o /dev/null | grep aid 
@@ -84,7 +84,7 @@ or simply iso img you can make an img with k3b go to copy medium and select only
 
 
        
-       mpv dvdnav://2 --cache=no --dvd-device=/media/spooky/store/down-by-low.img --stream-dump=output.vob
+       mpv dvdnav://2 --cache=no --dvd-speed=4  --dvd-device=/media/spooky/store/down-by-low.img --stream-dump=output.vob
 
 
 
