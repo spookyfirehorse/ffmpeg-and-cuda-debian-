@@ -2,7 +2,7 @@
        
        sudo apt build-dep ffmpeg
        sudo apt purge  ocl-icd-libopencl1 ocl-icd-opencl-dev
-       sudo apt install nvidia-cuda-toolkit
+       sudo apt install nvidia-cuda-toolkit nvidia-driver
        sudo apt install libfdk* 
        
 # ffmpeg for debian trixie testing
