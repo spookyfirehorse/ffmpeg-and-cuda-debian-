@@ -1,12 +1,11 @@
- cuda nvenc nvdec usw for ffmpeg for debian trixie
+ # cuda nvenc nvdec usw for ffmpeg for debian trixie
        
        sudo apt build-dep ffmpeg
        sudo apt purge  ocl-icd-libopencl1 ocl-icd-opencl-dev
        sudo apt install nvidia-cuda-toolkit
        sudo apt install libfdk* 
-       optional ##   git clone -b sdk/12.0 https://github.com/FFmpeg/nv-codec-headers.git  && cd nv-codec-headers && make &&sudo make install
        
-and cd to ffmpeg
+# ffmpeg for debian trixie testing
 
          git clone -b release/6.1 https://github.com/FFmpeg/FFmpeg.git && cd FFmpeg
          
@@ -31,7 +30,7 @@ and cd to ffmpeg
          --enable-libvo_amrwbenc --enable-version3 --enable-cuda-nvcc --enable-libnpp  && make -j4 &&  sudo make -j 4 install
 
 
-debiab bookworm 
+# debiab bookworm 
 
      sudo apt autoremove cuda* nvidia* --purge
      curl -fSsL https://developer.download.nvidia.com/compute/cuda/repos/debian12/x86_64/3bf863cc.pub | sudo gpg --dearmor | sudo tee /usr/share/keyrings/nvidia-drivers.gpg > /dev/null 2>&1
@@ -45,7 +44,6 @@ debiab bookworm
       sudo apt build-dep ffmpeg
       sudo apt purge  ocl-icd-libopencl1 ocl-icd-opencl-dev
        
-      find /usr -name cuda  --extra-cflags=-I/usr/local/cuda/include --extra-ldflags=-L/usr/local/cuda/lib64
   
 
 
@@ -72,6 +70,8 @@ debiab bookworm
 
   
 ffmpeg -vsync 0 -i input.mp4 -c:v h264_nvenc -gpu list -f null –
+
+-gpu 0 
 
 
 ffmpeg -vsync 0 -hwaccel cuvid -hwaccel_device 1 -c:v h264_cuvid -i input.mp4 -c:a copy -c:v h264_nvenc -b:v 5M output.mp4
