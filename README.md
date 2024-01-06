@@ -71,6 +71,11 @@ debiab bookworm
 
 
   
+ffmpeg -vsync 0 -i input.mp4 -c:v h264_nvenc -gpu list -f null –
+
+
+ffmpeg -vsync 0 -hwaccel cuvid -hwaccel_device 1 -c:v h264_cuvid -i input.mp4 -c:a copy -c:v h264_nvenc -b:v 5M output.mp4
+   
 
 
 nvenc + fdkaac +x11grab
