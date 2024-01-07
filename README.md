@@ -124,39 +124,39 @@ dvd + all subtitles and all audio
 
 
  
-Ripping full dvd with all subtitle and all languages
+#####                            Ripping full dvd with all subtitle and all languages
 
-by hand if you want special tracks or longest
 
-make an iso img
 
-dd working sometimes
+dd working sometimes but encoding fails sometimes
 
        lsdvd /dev/sr0 && ddrescue -b 2048 -n -v /dev/sr0 output.iso 
 
-        wodim -eject -tao speed=2 dev=/dev/sr0 -v -data myiso.iso
+        
 
-       sudo mount /dev/sr0 /dev/dvd
        lsdvd /dev/sr0 ### look for longest track on the end of output
-       mplayer dvd://3 -nocache -dvd-device  output.iso  -dumpstream -dumpfile output.vob
        mplayer dvd://3 -nocache -dvd-device  /dev/sr0  -dumpstream -dumpfile output.vob
-       mplayer dvd://3 -nocache -dumpstream -dumpfile output.vob 
-       
+
+       mplayer dvd://3 -nocache -dvd-device  output.iso  -dumpstream -dumpfile output.vob
+
    ## 
        
-       mpv dvdnav://2 --cache=no --dvd-speed=2 --stream-dump=output.vob #mpv count -1 lsdvd
-       vobcopy -t example  -i /dev/sr0 -l  -n 2 -o /media/spooky/storage/
+       mpv dvd://2 --cache=no  --stream-dump=output.vob #mpv count -1 lsdvd
+       
+       vobcopy -t example  /dev/sr0 -l  -n 2 -o ~
+       
        dvdbackup -i  /dev/sr0 -n examplename  -t 2 -p  -o /home/spooky/
+       
        mencoder dvd://2 -nocache -dvd-device  /media/storage/output.iso -o /dev/null | grep aid 
        mencoder dvd://2 -nocache -dvd-device  /media/storage/output.iso -o /dev/null | grep sid 
+       
+ verbose
+ 
        sudo lsdvd -t 3 -x  /dev/sr0
 
 or simply from iso 
 
-
-
-       
-       mpv dvd://2 --cache=no   --dvd-device=output.iso --stream-dump=output.vob
+    mpv dvd://2 --cache=no   --dvd-device=output.iso --stream-dump=output.vob
 
 
 
