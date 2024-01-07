@@ -212,7 +212,7 @@ so now the finsh
 copy and past in     
 
         #!/bin/bash
-       for file in "$1"; do   ffmpeg -fflags +genpts+igndts+discardcorrupt   -hwaccel cuda -probesize 1200M -analyzeduration 1210M   -hwaccel_output_format nv12 -ifo_palette default.IFO    \
+       for file in "$1"; do   ffmpeg -fflags +genpts+igndts+discardcorrupt  -fix_sub_duration  -hwaccel cuda -probesize 1200M -analyzeduration 1210M   -hwaccel_output_format nv12 -ifo_palette default.IFO    \
         -canvas_size 720x576  -i "$file"  -ss 00:00:02     -metadata title="$file"  -map 0:v -scodec dvdsub  \
          -map 0:s     -c:v hevc_nvenc -profile:v main10  -level 5.2 -preset p5 -tune hq -b:v 3M -maxrate 5M   -qmin 0 -g 250 -rc-lookahead 20 -aspect 16:9   \
          -c:a libfdk_aac  -b:a 128k  -map 0:a  -f matroska  "${file%.*}.mkv"; done
@@ -220,7 +220,7 @@ copy and past in
 h264 mkv
 
                #!/bin/bash
-       for file in "$1"; do   ffmpeg  -fflags +genpts+igndts+discardcorrupt -hwaccel cuda -probesize 1200M -analyzeduration 1210M   -hwaccel_output_format nv12 -ifo_palette default.IFO    \
+       for file in "$1"; do   ffmpeg  -fflags +genpts+igndts+discardcorrupt  -fix_sub_duration -hwaccel cuda -probesize 1200M -analyzeduration 1210M   -hwaccel_output_format nv12 -ifo_palette default.IFO    \
         -canvas_size 720x576  -i "$file"  -ss 00:00:02     -metadata title="$file"  -map 0:v -scodec dvdsub  \
          -map 0:s     -c:v h264_nvenc -profile:v high  -level 4.2 -preset p5 -tune hq -b:v 3M -maxrate 5M   -qmin 0 -g 250 -rc-lookahead 20 -aspect 16:9   \
          -c:a libfdk_aac  -b:a 128k  -map 0:a  -f matroska  "${file%.*}.mkv"; done
@@ -230,20 +230,20 @@ for corrupted files
 
               
               
-              ffmpeg -y   -fflags +genpts+igndts+discardcorrupt     -hwaccel cuda  -probesize 5400M -analyzeduration 5410M   -hwaccel_output_format nv12 -forced_subs_only 0  -ifo_palette default.IFO   -canvas_size  720x576  -i example.vob  -metadata title="example"  -map 0:v -scodec dvdsub -fix_sub_duration  -map 0:s:2  -map 0:s:3    -c:v h264_nvenc -profile:v high  -level 4.2 -preset p5 -tune hq  -b:v 3M -bufsize 5M -maxrate 4M -qmin 0 -g 250 -bf 3 -b_ref_mode middle -temporal-aq 1 -rc-lookahead 20 -i_qfactor 0.75 -b_qfactor 1.1  -aspect 16:9   -c:a libfdk_aac -b:a 128k   -map 0:a:1 -map 0:a:2 -map 0:a:3    -af volume=1.5 -avoid_negative_ts 1   -max_interleave_delta 0   -f matroska  example.mkv
+              ffmpeg -y   -fflags +genpts+igndts+discardcorrupt   -fix_sub_duration   -hwaccel cuda  -probesize 5400M -analyzeduration 5410M   -hwaccel_output_format nv12 -forced_subs_only 0  -ifo_palette default.IFO   -canvas_size  720x576  -i example.vob  -metadata title="example"  -map 0:v -scodec dvdsub -fix_sub_duration  -map 0:s:2  -map 0:s:3    -c:v h264_nvenc -profile:v high  -level 4.2 -preset p5 -tune hq  -b:v 3M -bufsize 5M -maxrate 4M -qmin 0 -g 250 -bf 3 -b_ref_mode middle -temporal-aq 1 -rc-lookahead 20 -i_qfactor 0.75 -b_qfactor 1.1  -aspect 16:9   -c:a libfdk_aac -b:a 128k   -map 0:a:1 -map 0:a:2 -map 0:a:3    -af volume=1.5 -avoid_negative_ts 1   -max_interleave_delta 0   -f matroska  example.mkv
 
 
 or
 
 separate subtitle only
 
-              mencoder <VOBFILE> -nosound -ovc frameno -o /dev/null -vobsuboutindex 0 -sid 0 -vobsubout <SUBFILE>
+              ffmpeg  -probesize 1400M -analyzeduration 1410M  -fflags +genpts+igndts+discardcorrupt -ifo_palette default.IFO -fix_sub_duration     -i only_lovers_left_alive2.vob   -vn -an    -scodec copy   -map 0:s   -vn  -f matroska    test.mkv
          
 
 separate audio and specific  subtitles for corrupt files
 
 
-       ffmpeg  -probesize 1400M -analyzeduration 1410M  -fflags +genpts+igndts+discardcorrupt -ifo_palette default.IFO -fix_sub_duration -canvas_size  720x576    -i only_lovers_left_alive2.vob   -c:a libfdk_aac -b:a 128k    -map 0:a:1 -map 0:a:2 -map 0:a:3  -scodec dvdsub   -map 0:s:3 -map 0:s:2   -vn  -f matroska    test.mkv
+       ffmpeg  -probesize 1400M -analyzeduration 1410M  -fflags +genpts+igndts+discardcorrupt -ifo_palette default.IFO -fix_sub_duration -canvas_size  720x576    -i only_lovers_left_alive2.vob   -c:a libfdk_aac -b:a 128k    -map 0:a -scodec dvdsub -map 0:s   -vn  -f matroska    testa.mkv
 
 separate audio and all subtitles for corrupt files
 
@@ -256,7 +256,7 @@ seperate video
 
 muxing together
 
-         ffmpeg -fflags +genpts -i testv.mkv  -i test.mkv  -c:v copy -c:a copy -c:s copy  -map 0:v -map 1:a    -map 1:s  -f matroska output.mkv
+         ffmpeg -fflags +genpts -i testv.mkv  -i testa.mkv  -c:v copy -c:a copy -c:s copy  -map 0:v -map 1:a    -map 1:s  -f matroska output.mkv
 
 
 maybe you heave to set cnvas size to your movie resolution in the script -canvas_size 720x576 to correct the right place
