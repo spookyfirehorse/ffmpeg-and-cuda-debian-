@@ -154,12 +154,12 @@ or simply from iso
 
 
        
-       mpv dvd://2 --cache=no --dvd-speed=4  --dvd-device=output.iso --stream-dump=output.vob
+       mpv dvd://2 --cache=no   --dvd-device=output.iso --stream-dump=output.vob
 
 
 
 
-or simply dvd
+or simply dvd for the primary movie
 
 
        mpv dvdnav:// --cache=no --dvd-device=/dev/sr0 --stream-dump=output.vob
