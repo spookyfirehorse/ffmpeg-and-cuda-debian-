@@ -134,7 +134,7 @@ dd working sometimes
 
        lsdvd /dev/sr0 && ddrescue -b 2048 -n -v /dev/sr0 output.iso 
 
-
+        wodim -eject -tao speed=2 dev=/dev/sr0 -v -data myiso.iso
 
        sudo mount /dev/sr0 /dev/dvd
        lsdvd /dev/sr0 ### look for longest track on the end of output
