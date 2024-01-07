@@ -88,7 +88,7 @@ you getting by
 
 make a scipt
        
-       ffmpeg  -hide_banner  -hwaccel nvdec -hwaccel_output_format nv12 \
+       ffmpeg -fflags +genpts+igndts+discardcorrupt+nobuffer   -hide_banner  -hwaccel nvdec -hwaccel_output_format nv12 \
          -f pulse -ac 2 -i alsa_output.usb-Yamaha_Corporation_Steinberg_UR22C-00.pro-output-0.monitor  \
          -f x11grab -r 30  -video_size 1920x1080 -i :0.0+0,0 -c:v h264_nvenc  \
           -bufsize 8M -filter:v scale=720:-1 -b:v 1M  -preset p2 -tune ll  -profile:v  main  -level:v 4.1 -fpsmax 25 -maxrate 2M -qmin 0 -g 250 -bf 3 -b_ref_mode middle -temporal-aq 1 -rc-lookahead 20 -i_qfactor 0.75 -b_qfactor 1.1 \
@@ -104,21 +104,21 @@ nvenc + opus + x11grab
 
 nvenc + fdkaac +stream input +stream output
 
-       ffmpeg  -re  -fflags -vsync 0   -hwaccel nvdec -hwaccel_output_format nv12  -i  https://stv-live.akamaized.net/hls/live/2031011/lingeoSTVATwebPri/master_6692.m3u8  -hide_banner    \
+       ffmpeg  -re  -fflags +genpts+igndts+discardcorrupt+nobufferr -vsync 0   -hwaccel nvdec -hwaccel_output_format nv12  -i  https://stv-live.akamaized.net/hls/live/2031011/lingeoSTVATwebPri/master_6692.m3u8  -hide_banner    \
          -vcodec h264_nvenc -bufsize 8M -filter:v scale=720:-1 -b:v 1M  -preset p2 -tune ll  -profile:v  main  -level:v 4.1 -maxrate 2M -qmin 0 -g 250 -bf 3 -b_ref_mode middle -temporal-aq 1 -rc-lookahead 20 -i_qfactor 0.75    -fpsmax 25    -b_qfactor 1.1 -c:a libfdk_aac -profile:a aac_he -b:a 64k  -threads 4  -f rtsp -rtsp_transport tcp  rtsp://localhost:8559/mystream
 
 nvenc + opus stream input
 
-         ffmpeg  -re  -vsync 0  -hwaccel nvdec -hwaccel_output_format nv12  -i  https://stv-live.akamaized.net/hls/live/2031011/lingeoSTVATwebPri/master_6692.m3u8  -hide_banner    \
+         ffmpeg  -re -fflags +genpts+igndts+discardcorrupt+nobuffer -vsync 0  -hwaccel nvdec -hwaccel_output_format nv12  -i  https://stv-live.akamaized.net/hls/live/2031011/lingeoSTVATwebPri/master_6692.m3u8  -hide_banner    \
          -vcodec h264_nvenc -bufsize 8M -filter:v scale=720:-1 -b:v 1M  -preset p2 -tune ll  -profile:v  main  -level:v 4.1 -maxrate 2M -qmin 0 -g 250 -bf 3 -b_ref_mode middle -temporal-aq 1 -rc-lookahead 20 -i_qfactor 0.75   -fpsmax 25     -b_qfactor 1.1 -c:a libopus  -b:a 64k  -application lowdelay  -ar 48000 -threads 4  -f rtsp -rtsp_transport tcp  rtsp://localhost:8559/mystream
 
 all to mkv aac
        
-           for file in "$1"; do ffmpeg -vsync 0  -hwaccel cuda -hwaccel_output_format nv12   -i "$file"  -c:v h264_nvenc    -preset p6 -tune hq -b:v 3M -bufsize 5M -maxrate 5M -qmin 0 -g 250 -bf 3 -b_ref_mode middle -temporal-aq 1 -rc-lookahead 20 -i_qfactor 0.75 -b_qfactor 1.1      -c:a libfdk_aac  -b:a 96k -f matroska "${file%.*}_high.mkv"; done
+           for file in "$1"; do ffmpeg -fflags +genpts+igndts+discardcorrupt+nobuffer -vsync 0  -hwaccel cuda -hwaccel_output_format nv12   -i "$file"  -c:v h264_nvenc    -preset p6 -tune hq -b:v 3M -bufsize 5M -maxrate 5M -qmin 0 -g 250 -bf 3 -b_ref_mode middle -temporal-aq 1 -rc-lookahead 20 -i_qfactor 0.75 -b_qfactor 1.1      -c:a libfdk_aac  -b:a 96k -f matroska "${file%.*}_high.mkv"; done
 
 opus
 
-              for file in "$1"; do ffmpeg -vsync 0  -hwaccel cuda -hwaccel_output_format nv12   -i "$file"  -c:v h264_nvenc    -preset p6 -tune hq -b:v 3M -bufsize 5M -maxrate 5M -qmin 0 -g 250 -bf 3 -b_ref_mode middle -temporal-aq 1 -rc-lookahead 20 -i_qfactor 0.75 -b_qfactor 1.1  -c:a libopus  -b:a 64k  -application lowdelay  -ar 48000 -f matroska "${file%.*}_high.mkv"; done
+              for file in "$1"; do ffmpeg -fflags +genpts+igndts+discardcorrupt+nobuffer -vsync 0  -hwaccel cuda -hwaccel_output_format nv12   -i "$file"  -c:v h264_nvenc    -preset p6 -tune hq -b:v 3M -bufsize 5M -maxrate 5M -qmin 0 -g 250 -bf 3 -b_ref_mode middle -temporal-aq 1 -rc-lookahead 20 -i_qfactor 0.75 -b_qfactor 1.1  -c:a libopus  -b:a 64k  -application lowdelay  -ar 48000 -f matroska "${file%.*}_high.mkv"; done
 
 dvd + all subtitles and all audio
 
@@ -210,7 +210,7 @@ so now the finsh
 copy and past in     
 
         #!/bin/bash
-       for file in "$1"; do   ffmpeg   -hwaccel cuda -probesize 1200M -analyzeduration 1210M   -hwaccel_output_format nv12 -ifo_palette default.IFO    \
+       for file in "$1"; do   ffmpeg -fflags +genpts+igndts+discardcorrupt   -hwaccel cuda -probesize 1200M -analyzeduration 1210M   -hwaccel_output_format nv12 -ifo_palette default.IFO    \
         -canvas_size 720x576  -i "$file"  -ss 00:00:02     -metadata title="$file"  -map 0:v -scodec dvdsub  \
          -map 0:s     -c:v hevc_nvenc -profile:v main10  -level 5.2 -preset p5 -tune hq -b:v 3M -maxrate 5M   -qmin 0 -g 250 -rc-lookahead 20 -aspect 16:9   \
          -c:a libfdk_aac  -b:a 128k  -map 0:a  -f matroska  "${file%.*}.mkv"; done
@@ -218,7 +218,7 @@ copy and past in
 h264 mkv
 
                #!/bin/bash
-       for file in "$1"; do   ffmpeg   -hwaccel cuda -probesize 1200M -analyzeduration 1210M   -hwaccel_output_format nv12 -ifo_palette default.IFO    \
+       for file in "$1"; do   ffmpeg  -fflags +genpts+igndts+discardcorrupt -hwaccel cuda -probesize 1200M -analyzeduration 1210M   -hwaccel_output_format nv12 -ifo_palette default.IFO    \
         -canvas_size 720x576  -i "$file"  -ss 00:00:02     -metadata title="$file"  -map 0:v -scodec dvdsub  \
          -map 0:s     -c:v h264_nvenc -profile:v high  -level 4.2 -preset p5 -tune hq -b:v 3M -maxrate 5M   -qmin 0 -g 250 -rc-lookahead 20 -aspect 16:9   \
          -c:a libfdk_aac  -b:a 128k  -map 0:a  -f matroska  "${file%.*}.mkv"; done
@@ -228,7 +228,7 @@ for corrupted files
 
               
               
-              ffmpeg -y   -fflags +genpts+igndts    -hwaccel cuda  -probesize 5400M -analyzeduration 5410M   -hwaccel_output_format nv12 -forced_subs_only 0  -ifo_palette default.IFO   -canvas_size  720x576  -i example.vob  -metadata title="example"  -map 0:v -scodec dvdsub -fix_sub_duration  -map 0:s:2  -map 0:s:3    -c:v h264_nvenc -profile:v high  -level 4.2 -preset p5 -tune hq  -b:v 3M -bufsize 5M -maxrate 4M -qmin 0 -g 250 -bf 3 -b_ref_mode middle -temporal-aq 1 -rc-lookahead 20 -i_qfactor 0.75 -b_qfactor 1.1  -aspect 16:9   -c:a libfdk_aac -b:a 128k   -map 0:a:1 -map 0:a:2 -map 0:a:3    -af volume=1.5 -avoid_negative_ts 1   -max_interleave_delta 0   -f matroska  example.mkv
+              ffmpeg -y   -fflags +genpts+igndts+discardcorrupt     -hwaccel cuda  -probesize 5400M -analyzeduration 5410M   -hwaccel_output_format nv12 -forced_subs_only 0  -ifo_palette default.IFO   -canvas_size  720x576  -i example.vob  -metadata title="example"  -map 0:v -scodec dvdsub -fix_sub_duration  -map 0:s:2  -map 0:s:3    -c:v h264_nvenc -profile:v high  -level 4.2 -preset p5 -tune hq  -b:v 3M -bufsize 5M -maxrate 4M -qmin 0 -g 250 -bf 3 -b_ref_mode middle -temporal-aq 1 -rc-lookahead 20 -i_qfactor 0.75 -b_qfactor 1.1  -aspect 16:9   -c:a libfdk_aac -b:a 128k   -map 0:a:1 -map 0:a:2 -map 0:a:3    -af volume=1.5 -avoid_negative_ts 1   -max_interleave_delta 0   -f matroska  example.mkv
 
 
 or
@@ -241,16 +241,16 @@ separate subtitle only
 separate audio and specific  subtitles for corrupt files
 
 
-       ffmpeg  -probesize 1400M -analyzeduration 1410M -fflags +genpts+igndts -ifo_palette default.IFO -fix_sub_duration -canvas_size  720x576    -i only_lovers_left_alive2.vob   -c:a libfdk_aac -b:a 128k    -map 0:a:1 -map 0:a:2 -map 0:a:3  -scodec dvdsub   -map 0:s:3 -map 0:s:2   -vn  -f matroska    test.mkv
+       ffmpeg  -probesize 1400M -analyzeduration 1410M  -fflags +genpts+igndts+discardcorrupt -ifo_palette default.IFO -fix_sub_duration -canvas_size  720x576    -i only_lovers_left_alive2.vob   -c:a libfdk_aac -b:a 128k    -map 0:a:1 -map 0:a:2 -map 0:a:3  -scodec dvdsub   -map 0:s:3 -map 0:s:2   -vn  -f matroska    test.mkv
 
 separate audio and all subtitles for corrupt files
 
 
-        ffmpeg  -probesize 1400M -analyzeduration 1410M -fflags +genpts+igndts -ifo_palette default.IFO -fix_sub_duration -canvas_size  720x576    -i only_lovers_left_alive2.vob   -c:a libfdk_aac -b:a 128k    -map 0:a -scodec dvdsub    -map 0:s -vn  -f matroska    test.mkv
+        ffmpeg  -probesize 1400M -analyzeduration 1410M -fflags +genpts+igndts+discardcorrupt -ifo_palette default.IFO -fix_sub_duration -canvas_size  720x576    -i only_lovers_left_alive2.vob   -c:a libfdk_aac -b:a 128k    -map 0:a -scodec dvdsub    -map 0:s -vn  -f matroska    test.mkv
 
 seperate video
 
-         ffmpeg -y   -fflags +genpts+igndts    -hwaccel cuda  -probesize 1400M -analyzeduration 1410M   -hwaccel_output_format nv12  -i testv.mpeg   -c:v h264_nvenc -profile:v high  -level 4.2 -preset p5 -tune hq   -b:v 3M -bufsize 5M -maxrate 4M -qmin 0 -g 250 -bf 3 -b_ref_mode middle -temporal-aq 1 -rc-lookahead 20 -i_qfactor 0.75 -b_qfactor 1.1  -aspect 16:9 -sn -an    -f matroska  testv.mkv
+         ffmpeg -y   -fflags +genpts+igndts+discardcorrupt    -hwaccel cuda  -probesize 1400M -analyzeduration 1410M   -hwaccel_output_format nv12  -i testv.mpeg   -c:v h264_nvenc -profile:v high  -level 4.2 -preset p5 -tune hq   -b:v 3M -bufsize 5M -maxrate 4M -qmin 0 -g 250 -bf 3 -b_ref_mode middle -temporal-aq 1 -rc-lookahead 20 -i_qfactor 0.75 -b_qfactor 1.1  -aspect 16:9 -sn -an    -f matroska  testv.mkv
 
 muxing together
 
@@ -272,7 +272,7 @@ play it
        
 android
 
-       ffmpeg   -hwaccel cuda -hwaccel_output_format nv12   -fflags +genpts+nobuffer+discardcorrupt   -hide_banner -rtsp_transport tcp   -i rtsp://127.0.0.1:8080/h264_pcm.sdp -c:v h264_nvenc -b:v 1M  -preset p1 -tune ll       -c:a libopus  -b:a 64k  -application lowdelay  -ar 48000  -f rtsp -rtsp_transport tcp  rtsp://localhost:8559/mystream
+       ffmpeg -fflags +genpts+igndts+discardcorrupt  -hwaccel cuda -hwaccel_output_format nv12   -fflags +genpts+nobuffer+discardcorrupt   -hide_banner -rtsp_transport tcp   -i rtsp://127.0.0.1:8080/h264_pcm.sdp -c:v h264_nvenc -b:v 1M  -preset p1 -tune ll       -c:a libopus  -b:a 64k  -application lowdelay  -ar 48000  -f rtsp -rtsp_transport tcp  rtsp://localhost:8559/mystream
 
 
 export
