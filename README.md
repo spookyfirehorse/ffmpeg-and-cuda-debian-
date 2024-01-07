@@ -130,6 +130,8 @@ by hand if you want special tracks or longest
 
 make an iso img
 
+dd working sometimes
+
        lsdvd /dev/sr0 && ddrescue -b 2048 -n -v /dev/sr0 output.iso 
 
 
