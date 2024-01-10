@@ -200,10 +200,10 @@ so now the finsh
 #  hevc matroska
 
        #!/bin/bash
-for file in "$1"; do   ffmpeg -fix_sub_duration -fflags +genpts+discardcorrupt+igndts  -hwaccel nvenc -hwaccel_output_format nv12 -probesize 4200M -analyzeduration 42100M  -ifo_palette default.IFO  \
- -canvas_size  720x576   -i "$file"  -ss 00:00:02     -metadata title='"$file"'  -map 0:v -scodec dvbsub   -map 0:s   \
-  -c:v hevc_nvenc -profile:v main10 -pix_fmt p010le -level 4.0 -preset p6 -tune hq -b:v 5M -bufsize 5M -maxrate 10M -qmin 0 -g 250  -rc-lookahead 20 -i_qfactor 0.75 -b_qfactor 1.1    \
-  -c:a libfdk_aac  -b:a 128k -map 0:a -af volume=1.5   -f matroska  "${file%.*}_1.mkv"; done
+          for file in "$1"; do   ffmpeg -fix_sub_duration -fflags +genpts+discardcorrupt+igndts  -hwaccel nvenc -hwaccel_output_format nv12 -probesize 4200M -analyzeduration 42100M  -ifo_palette default.IFO  \
+        -canvas_size  720x576   -i "$file"  -ss 00:00:02     -metadata title='"$file"'  -map 0:v -scodec dvbsub   -map 0:s   \
+        -c:v hevc_nvenc -profile:v main10 -pix_fmt p010le -level 4.0 -preset p6 -tune hq -b:v 5M -bufsize 5M -maxrate 10M -qmin 0 -g 250  -rc-lookahead 20 -i_qfactor 0.75 -b_qfactor 1.1    \
+        -c:a libfdk_aac  -b:a 128k -map 0:a -af volume=1.5   -f matroska  "${file%.*}_1.mkv"; done
 
      
       ffmpeg -fix_sub_duration -fflags +genpts+discardcorrupt+igndts  -hwaccel nvenc -hwaccel_output_format nv12 -probesize 4200M -analyzeduration 42100M  -ifo_palette default.IFO  \
