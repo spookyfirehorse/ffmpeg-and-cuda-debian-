@@ -116,18 +116,24 @@ dvd + all subtitles and all audio
 
 dd working sometimes but encoding fails sometimes
 
-       lsdvd /dev/sr0 && ddrescue -b 2048 -n -v /dev/sr0 output.iso 
-
-        
-
+      
        lsdvd /dev/sr0 ### look for longest track on the end of output
+
+       
        mplayer dvd://3 -nocache -dvd-device  /dev/sr0  -dumpstream -dumpfile output.vob
 
        mplayer dvd://3 -nocache -dvd-device  output.iso  -dumpstream -dumpfile output.vob
 
    ## 
+      mpv dvd://2 --dvd-device=/dev/sr0 --cache=no  --stream-dump=output.vob 
+      
+      mpv dvdnav:// --cache=no --dvd-device=/dev/sr0 --stream-dump=output.vob
+
        
-       mpv dvd://2 --cache=no  --stream-dump=output.vob #mpv count -1 lsdvd
+per chapter 
+
+       mplayer dvd://8  -dvd-device /dev/sr0  -chapter 2-14  -dumpstream -dumpfile ~/3.VOB
+
        
        vobcopy -t example  /dev/sr0 -l  -n 2 -o ~
        
@@ -142,7 +148,7 @@ dd working sometimes but encoding fails sometimes
 
 or simply from iso 
 
-    mpv dvd://2 --cache=no   --dvd-device=output.iso --stream-dump=output.vob
+    mpv dvd://2 --cache=no   --dvd-device=/dev/sr0  --stream-dump=output.vob
 
 
 
