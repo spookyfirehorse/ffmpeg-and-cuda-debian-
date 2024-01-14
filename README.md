@@ -53,16 +53,16 @@
 
         && make -j4 &&  sudo make -j 4 install
 
+ #       look for your options
 
-  
-ffmpeg -vsync 0 -i input.mp4 -c:v h264_nvenc -gpu list -f null –
-
--gpu 0 
+    ffmpeg -h encoder=h264_nvenc
 
 
-ffmpeg -vsync 0 -hwaccel cuvid -hwaccel_device 1 -c:v h264_cuvid -i input.mp4 -c:a copy -c:v h264_nvenc -b:v 5M output.mp4
+ #         basic input output
+
+     ffmpeg -vsync 0 -hwaccel nvdec   -c:v h264_nvenc -i input.mp4 -c:a copy  -b:v 5M output.mp4
    
-
+more detail later
 
 ##        nvenc + fdkaac +x11grab
 
@@ -72,13 +72,32 @@ you getting by
 
               pactl list | grep -A2 'Source #' | grep 'Name: '
 
-make a scipt
-       
-       ffmpeg -fflags +genpts+igndts+discardcorrupt+nobuffer   -hide_banner  -hwaccel nvdec -hwaccel_output_format nv12 \
-         -f pulse -ac 2 -i alsa_output.usb-Yamaha_Corporation_Steinberg_UR22C-00.pro-output-0.monitor  \
-         -f x11grab -r 30  -video_size 1920x1080 -i :0.0+0,0 -c:v h264_nvenc  \
-          -bufsize 8M -filter:v scale=720:-1 -b:v 1M  -preset p2 -tune ll  -profile:v  main  -level:v 4.1 -fpsmax 25 -maxrate 2M -qmin 0 -g 250 -bf 3 -b_ref_mode middle -temporal-aq 1 -rc-lookahead 20 -i_qfactor 0.75 -b_qfactor 1.1 \
-         -c:a libfdk_aac -profile:a aac_he -b:a 64k  -ar 48000   -f rtsp rtsp://localhost:8559/mystream
+
+#                                  BASIC RTSP STREAM
+
+FPS and BITRATE depends on your upload speed
+
+low-latency-streaming camera /dev/video0 plughw 0 first audio device micro
+
+              
+     ffmpeg +genpts+igndts+nobuffer   -hide_banner  -hwaccel nvdec -hwaccel_output_format nv12  \
+         -f alsa -ac 2 -i plughw:0  \
+         -i /dev/video0 -c:v h264_nvenc  \
+          -bufsize 8M -filter:v scale=720:-1 -b:v 1M  -preset p2 -tune ll  -profile:v  main  -level:v 4.1 -maxrate 2M -qmin 0 -g 250 -bf 3 -b_ref_mode middle -temporal-aq 1 -rc-lookahead 20 -i_qfactor 0.75 -b_qfactor 1.1 -fpsmax 25 \
+         -c:a libopus  -b:a 64k  -application lowdelay  -ar 48000   -f rtsp rtsp://localhost:8559/mystream
+   
+   
+   #  record to file   h264 matroska        
+
+         ffmpeg +genpts+igndts+nobuffer   -hide_banner  -hwaccel nvdec -hwaccel_output_format nv12  \
+         -f alsa -ac 2 -i plughw:0  \
+         -i /dev/video0 -c:v h264_nvenc  \
+          -bufsize 8M -filter:v scale=720:-1 -b:v 1M  -preset p2 -tune ll  -profile:v  main  -level:v 4.1 -maxrate 2M -qmin 0 -g 250 -bf 3 -b_ref_mode middle -temporal-aq 1 -rc-lookahead 20 -i_qfactor 0.75 -b_qfactor 1.1 -fpsmax 25 \
+         -c:a libopus  -b:a 64k  -application lowdelay  -ar 48000   -f matroska output.mkv
+
+  
+ 
+
 
 ##   nvenc + opus + x11grab
 
@@ -114,12 +133,14 @@ dvd + all subtitles and all audio
 
 
 
-dd working sometimes but encoding fails sometimes
 
       
        lsdvd /dev/sr0 ### look for longest track on the end of output
 
-       
+        lsdvd -v /dev/sr0   ##for resolution
+
+         lsdvd -p /dev/sr0   ##for colorpalette
+        
        mplayer dvd://3 -nocache -dvd-device  /dev/sr0  -dumpstream -dumpfile output.vob
 
        mplayer dvd://3 -nocache -dvd-device  output.iso  -dumpstream -dumpfile output.vob
