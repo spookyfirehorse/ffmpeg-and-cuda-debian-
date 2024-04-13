@@ -227,13 +227,13 @@ so now the finsh
 #  hevc matroska
 
        #!/bin/bash
-          for file in "$1"; do   ffmpeg -fix_sub_duration -fflags +genpts+discardcorrupt+igndts  -hwaccel nvenc -hwaccel_output_format nv12 -probesize 4200M -analyzeduration 42100M  -ifo_palette default.IFO  \
+          for file in "$1"; do   ffmpeg -fix_sub_duration -fflags +genpts  -hwaccel nvenc -hwaccel_output_format nv12 -probesize 4200M -analyzeduration 42100M  -ifo_palette default.IFO  \
         -canvas_size  720x576   -i "$file"  -ss 00:00:02     -metadata title='"$file"'  -map 0:v -scodec dvbsub   -map 0:s   \
         -c:v hevc_nvenc -profile:v main10 -pix_fmt p010le -level 4.0 -preset p6 -tune hq -b:v 5M -bufsize 5M -maxrate 10M -qmin 0 -g 250  -rc-lookahead 20 -i_qfactor 0.75 -b_qfactor 1.1    \
         -c:a libfdk_aac  -b:a 128k -map 0:a -af volume=1.5   -f matroska  "${file%.*}_1.mkv"; done
 
      
-      ffmpeg -fix_sub_duration -fflags +genpts+discardcorrupt+igndts  -hwaccel nvenc -hwaccel_output_format nv12 -probesize 4200M -analyzeduration 42100M  -ifo_palette default.IFO  \
+      ffmpeg -fix_sub_duration -fflags +genpts  -hwaccel nvenc -hwaccel_output_format nv12 -probesize 4200M -analyzeduration 42100M  -ifo_palette default.IFO  \
       -canvas_size  720x576   -i "$file"  -ss 00:00:02     -metadata title='"$file"'  -map 0:v -scodec dvbsub   -map 0:s   \
        -c:v hevc_nvenc -profile:v main10 -pix_fmt p010le -level 4.0 -preset p6 -tune hq -b:v 5M -bufsize 5M -maxrate 10M -qmin 0 -g 250  -rc-lookahead 20 -i_qfactor 0.75 -b_qfactor 1.1    \
       -c:a libfdk_aac  -b:a 128k -map 0:a -af volume=1.5   -f matroska  "output.mkv
@@ -243,13 +243,13 @@ so now the finsh
 # h264 mkv
 
                #!/bin/bash
-       for file in "$1"; do   ffmpeg  -fflags +genpts+igndts+discardcorrupt  -fix_sub_duration -hwaccel cuda -probesize 1200M -analyzeduration 1210M   -hwaccel_output_format nv12 -ifo_palette default.IFO    \
+       for file in "$1"; do   ffmpeg  -fflags +genpts -fix_sub_duration -hwaccel cuda -probesize 1200M -analyzeduration 1210M   -hwaccel_output_format nv12 -ifo_palette default.IFO    \
         -canvas_size 720x576  -i "$file"  -ss 00:00:02     -metadata title="$file"  -map 0:v -scodec dvdsub  \
          -map 0:s     -c:v h264_nvenc -profile:v high  -level 4.2 -preset p5 -tune hq -b:v 3M -maxrate 5M   -qmin 0 -g 250 -rc-lookahead 20     \
          -c:a libfdk_aac  -b:a 128k  -map 0:a  -f matroska  "${file%.*}.mkv"; done
 
           
-       ffmpeg  -fflags +genpts+igndts+discardcorrupt  -fix_sub_duration -hwaccel cuda -probesize 1200M -analyzeduration 1210M   -hwaccel_output_format nv12 -ifo_palette default.IFO    \
+       ffmpeg  -fflags +genpts  -fix_sub_duration -hwaccel cuda -probesize 1200M -analyzeduration 1210M   -hwaccel_output_format nv12 -ifo_palette default.IFO    \
         -canvas_size 720x576  -i "$file"  -ss 00:00:02     -metadata title="$file"  -map 0:v -scodec dvdsub  \
          -map 0:s     -c:v h264_nvenc -profile:v high  -level 4.2 -preset p5 -tune hq -b:v 3M -maxrate 5M   -qmin 0 -g 250 -rc-lookahead 20     \
          -c:a libfdk_aac  -b:a 128k  -map 0:a  -f matroska  output.mkv
@@ -258,32 +258,32 @@ so now the finsh
 #  h264 mp4
 
         #!/bin/bash
-       for file in "$1"; do   ffmpeg  -fflags +genpts+igndts+discardcorrupt  -fix_sub_duration -hwaccel cuda -probesize 1200M -analyzeduration 1210M   -hwaccel_output_format nv12 -ifo_palette default.IFO    \
+       for file in "$1"; do   ffmpeg  -fflags +genpts  -fix_sub_duration -hwaccel cuda -probesize 1200M -analyzeduration 1210M   -hwaccel_output_format nv12 -ifo_palette default.IFO    \
         -canvas_size 720x576  -i "$file"  -ss 00:00:02     -metadata title="$file"  -map 0:v -scodec dvdsub  \
          -map 0:s     -c:v h264_nvenc -profile:v high  -level 4.2 h264_nvenc -preset p6 -tune hq -b:v 5M -bufsize 5M -maxrate 10M -qmin 0 -g 250 -bf 3 -b_ref_mode middle -temporal-aq 1 -rc-lookahead 20 -i_qfactor 0.75 -b_qfactor 1.1    \
          -c:a libfdk_aac  -b:a 128k  -map 0:a  -f mp4  "${file%.*}.mp4"; done
 
 
         
-       ffmpeg  -fflags +genpts+igndts+discardcorrupt  -fix_sub_duration -hwaccel cuda -probesize 1200M -analyzeduration 1210M   -hwaccel_output_format nv12 -ifo_palette default.IFO    \
+       ffmpeg  -fflags +genpts  -fix_sub_duration -hwaccel cuda -probesize 1200M -analyzeduration 1210M   -hwaccel_output_format nv12 -ifo_palette default.IFO    \
         -canvas_size 720x576  -i "$file"  -ss 00:00:02     -metadata title="$file"  -map 0:v -scodec dvdsub  \
          -map 0:s     -c:v h264_nvenc -profile:v high  -level 4.2 h264_nvenc -preset p6 -tune hq -b:v 5M -bufsize 5M -maxrate 10M -qmin 0 -g 250 -bf 3 -b_ref_mode middle -temporal-aq 1 -rc-lookahead 20 -i_qfactor 0.75 -b_qfactor 1.1    \
-         -c:a libfdk_aac  -b:a 128k  -map 0:a  -f mp4  outpu.mp4
+         -c:a libfdk_aac  -b:a 128k  -map 0:a  -f mp4  output.mp4
 
 #  h264 matroska mkv
 
         #!/bin/bash
-       for file in "$1"; do   ffmpeg  -fflags +genpts+igndts+discardcorrupt  -fix_sub_duration -hwaccel cuda -probesize 1200M -analyzeduration 1210M   -hwaccel_output_format nv12 -ifo_palette default.IFO    \
+       for file in "$1"; do   ffmpeg  -fflags +genpts  -fix_sub_duration -hwaccel cuda -probesize 1200M -analyzeduration 1210M   -hwaccel_output_format nv12 -ifo_palette default.IFO    \
         -canvas_size 720x576  -i "$file"  -ss 00:00:02     -metadata title="$file"  -map 0:v -scodec dvdsub  \
          -map 0:s     -c:v h264_nvenc -profile:v high  -level 4.2 h264_nvenc -preset p6 -tune hq -b:v 5M -bufsize 5M -maxrate 10M -qmin 0 -g 250 -bf 3 -b_ref_mode middle -temporal-aq 1 -rc-lookahead 20 -i_qfactor 0.75 -b_qfactor 1.1    \
          -c:a libfdk_aac  -b:a 128k  -map 0:a  -f matroska  "${file%.*}.mp4"; done
 
 
         
-       ffmpeg  -fflags +genpts+igndts+discardcorrupt  -fix_sub_duration -hwaccel cuda -probesize 1200M -analyzeduration 1210M   -hwaccel_output_format nv12 -ifo_palette default.IFO    \
-        -canvas_size 720x576  -i "$file"  -ss 00:00:02     -metadata title="$file"  -map 0:v -scodec dvdsub  \
+       ffmpeg  -fflags +genpts  -fix_sub_duration -hwaccel cuda -probesize 1200M -analyzeduration 1210M   -hwaccel_output_format nv12 -ifo_palette output.IFO    \
+        -canvas_size 720x576  -i output.vob  -metadata title="example"  -map 0:v -scodec dvdsub  \
          -map 0:s     -c:v h264_nvenc -profile:v high  -level 4.2 h264_nvenc -preset p6 -tune hq -b:v 5M -bufsize 5M -maxrate 10M -qmin 0 -g 250 -bf 3 -b_ref_mode middle -temporal-aq 1 -rc-lookahead 20 -i_qfactor 0.75 -b_qfactor 1.1    \
-         -c:a libfdk_aac  -b:a 128k  -map 0:a  -f matroska  outpu.mkv
+         -c:a libfdk_aac  -b:a 128k  -map 0:a  -f matroska  output.mkv
 
 
 
