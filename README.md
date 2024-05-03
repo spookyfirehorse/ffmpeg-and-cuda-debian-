@@ -93,7 +93,7 @@ low-latency-streaming camera /dev/video0 plughw 0 first audio device micro
          -c:a libopus  -b:a 64k  -application lowdelay  -ar 48000   -f rtsp rtsp://localhost:8559/mystream
    
    
-   #  record to file   h264 matroska        
+   #  desktop record to mkv         
 
          ffmpeg +genpts+igndts+nobuffer   -hide_banner  -hwaccel nvdec -hwaccel_output_format nv12  \
          -f alsa -ac 2 -i plughw:0  \
