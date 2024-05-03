@@ -2,7 +2,7 @@
        
        
        sudo apt-get install build-essential yasm cmake libtool libc6 libc6-dev unzip wget libnuma1 libnuma-dev
-       sudo apt build-dep ffmpeg
+       sudo apt build-dep ffmpeg mpv
        sudo apt purge  ocl-icd-libopencl1 ocl-icd-opencl-dev
        sudo apt install nvidia-cuda-toolkit nvidia-driver
        sudo apt install libfdk* 
@@ -58,9 +58,15 @@
     ffmpeg -h encoder=h264_nvenc
 
 
- #         basic input output
+ #         MPV 
 
-     ffmpeg -vsync 0 -hwaccel nvdec   -c:v h264_nvenc -i input.mp4 -c:a copy  -b:v 5M output.mp4
+     meson setup build
+     
+     meson configure build -Dprefix=/usr -Dlibmpv=true  -Degl=enabled -Dwayland=enabled -Degl-wayland=enabled -Dsdl2=enabled -Dvaapi=disabled -Dvdpau=disabled -Dvulkan=enabled -Ddvdnav=enabled -Dcuda-interop=enabled -Dvulkan=enabled -Dcuda- hwaccel=enabled -Dshaderc=enabled -Dzimg=enabled   -Dzlib=enabled -Dpipewire=enabled -Ddvdnav=enabled -Ddvdbin=enabled
+     
+     meson compile -C build
+     
+     sudo meson install -C build
    
 more detail later
 
@@ -100,6 +106,12 @@ low-latency-streaming camera /dev/video0 plughw 0 first audio device micro
 
 
 ##   nvenc + opus + x11grab
+
+
+        pactl list | grep -A2 'Source #' | grep 'Name: '  needed for this line choose monitor output
+
+        -f pulse -ac 2 -i alsa_output.usb-Yamaha_Corporation_Steinberg_UR22C-00.pro-output-0.monitor 
+
 
        ffmpeg +genpts+igndts+nobuffer   -hide_banner  -hwaccel nvdec -hwaccel_output_format nv12  \
          -f pulse -ac 2 -i alsa_output.usb-Yamaha_Corporation_Steinberg_UR22C-00.pro-output-0.monitor  \
