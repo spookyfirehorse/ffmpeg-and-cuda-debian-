@@ -60,6 +60,10 @@
 
  #         MPV 
 
+     git clone -b release/0.38 https://github.com/mpv-player/mpv.git
+
+     apt source mpv
+
      meson setup build
      
      meson configure build -Dprefix=/usr -Dlibmpv=true  -Degl=enabled -Dwayland=enabled -Degl-wayland=enabled -Dsdl2=enabled -Dvaapi=disabled -Dvdpau=disabled -Dvulkan=enabled -Ddvdnav=enabled -Dcuda-interop=enabled -Dvulkan=enabled -Dcuda- hwaccel=enabled -Dshaderc=enabled -Dzimg=enabled   -Dzlib=enabled -Dpipewire=enabled -Ddvdnav=enabled -Ddvdbin=enabled
