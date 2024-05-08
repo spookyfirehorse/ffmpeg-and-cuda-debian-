@@ -66,7 +66,7 @@
 
      meson setup build
      
-     meson configure build -Dprefix=/usr -Dlibmpv=true  -Degl=enabled -Dwayland=enabled -Degl-wayland=enabled -Dsdl2=enabled -Dvaapi=disabled -Dvdpau=disabled -Dvulkan=enabled -Ddvdnav=enabled -Dcuda-interop=enabled -Dvulkan=enabled -Dcuda- hwaccel=enabled -Dshaderc=enabled -Dzimg=enabled   -Dzlib=enabled -Dpipewire=enabled 
+     meson configure build -Dprefix=/usr -Dlibmpv=true  -Degl=enabled -Dwayland=enabled -Degl-wayland=enabled -Dsdl2=enabled -Dvaapi=enabled -Dvdpau=enabled -Dvulkan=enabled -Ddvdnav=enabled -Dcuda-interop=enabled -Dvulkan=enabled -Dcuda- hwaccel=enabled -Dshaderc=enabled -Dzimg=enabled   -Dzlib=enabled -Dpipewire=enabled -Dshaderc=disabled
     
      meson compile -C build
      
