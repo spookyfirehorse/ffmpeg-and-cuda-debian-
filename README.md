@@ -6,6 +6,14 @@
        sudo apt purge  ocl-icd-libopencl1 ocl-icd-opencl-dev
        sudo apt install nvidia-cuda-toolkit nvidia-driver
        sudo apt install libfdk* 
+
+         export CUDA_HOME=/usr/local/cuda-12.8
+         export C_INCLUDE_PATH=${CUDA_HOME}/include:${C_INCLUDE_PATH}
+         export PATH=/usr/local/bin:${CUDA_HOME}/bin:${PATH}
+          #export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:${CUDA_HOME}/lib64:${CUDA_HOME}/extras/CUPTI/lib64:${LD_LIBRARY_PATH}
+         export LIBRARY_PATH=${CUDA_HOME}/lib64:${LIBRARY_PATH}
+
+       
        
 # ffmpeg for debian trixie testing
 
