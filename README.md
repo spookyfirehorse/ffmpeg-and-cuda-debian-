@@ -22,7 +22,7 @@
          --enable-libshine --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libsrt --enable-libssh \
          --enable-libsvtav1 --enable-libtheora --enable-libtwolame --enable-libvidstab --enable-libvorbis \
          --enable-libvpx --enable-libwebp --enable-libx265 --enable-libxml2 --enable-libxvid \
-         --enable-libzimg --enable-libzmq --enable-libzvbi --enable-lv2 --enable-omx --enable-openal \
+         --enable-libzimg --enable-libzmq --enable-libzvbi --enable-lv2  --enable-openal \
          --enable-opengl --enable-sdl2 --disable-sndio --enable-libjxl --enable-pocketsphinx \
          --enable-librsvg --enable-libvpl --enable-libdc1394 --enable-libdrm --enable-libiec61883 \
          --enable-chromaprint --enable-frei0r --enable-libx264 --enable-libplacebo --enable-librav1e \
