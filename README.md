@@ -9,7 +9,7 @@
 
          export CUDA_HOME=/usr/local/cuda-12.8
          export C_INCLUDE_PATH=${CUDA_HOME}/include:${C_INCLUDE_PATH}
-         export PATH=/usr/local/bin:${CUDA_HOME}/bin:${PATH}
+         
          #export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:${CUDA_HOME}/lib64:${CUDA_HOME}/extras/CUPTI/lib64:${LD_LIBRARY_PATH}
          export LIBRARY_PATH=${CUDA_HOME}/lib64:${LIBRARY_PATH}
 
@@ -17,8 +17,10 @@
        
 # ffmpeg for debian trixie testing
 
-         git clone -b release/7.1 https://github.com/FFmpeg/FFmpeg.git && cd FFmpeg
-         
+           git clone -b release/7.1 https://github.com/FFmpeg/FFmpeg.git && cd FFmpeg
+           
+           export PATH=/usr/local/cuda/bin:${PATH}
+           
          ./configure --prefix=/usr/ --extra-version=3 --toolchain=hardened  \
          --libdir=/usr/lib/x86_64-linux-gnu --incdir=/usr/include/x86_64-linux-gnu --arch=amd64 \
          --enable-gpl --disable-stripping --enable-gnutls --enable-ladspa --enable-libaom  \
@@ -37,7 +39,7 @@
          --enable-shared --disable-static --enable-nonfree --enable-cuda --enable-cuda-llvm --enable-vaapi \
          --enable-nvdec --enable-cuvid --enable-nvenc --enable-ffnvcodec  --enable-libfdk-aac --enable-libwebp \
          --enable-libaribb24 --enable-libopencore_amrnb --enable-libopencore_amrwb --enable-libtesseract \
-         --enable-libvo_amrwbenc --enable-version3 --enable-cuda-nvcc --enable-libnpp  && make -j4 &&  sudo make -j 4 install
+         --enable-libvo_amrwbenc --enable-version3 --enable-cuda-nvcc --enable-libnpp --extra-cflags=-I/usr/local/cuda/include --extra-ldflags=-L/usr/local/cuda/lib64  && make -j4 &&  sudo make -j 4 install
 
 
 # debiab bookworm 
