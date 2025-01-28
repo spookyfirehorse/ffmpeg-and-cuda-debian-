@@ -19,7 +19,7 @@
 
            
            
-         ./configure --prefix=/usr/ --extra-version=3 --toolchain=hardened  \
+          PATH=/usr/local/cuda/bin:${PATH}   ./configure --prefix=/usr/ --extra-version=3 --toolchain=hardened  \
          --libdir=/usr/lib/x86_64-linux-gnu --incdir=/usr/include/x86_64-linux-gnu --arch=amd64 \
          --enable-gpl --disable-stripping --enable-gnutls --enable-ladspa --enable-libaom  \
          --enable-libass --enable-libbluray --enable-libbs2b --enable-libcaca --enable-libcdio \
