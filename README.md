@@ -7,11 +7,7 @@
        sudo apt-get install cuda-toolkit
        sudo apt install libfdk*   cuda-12-8  cuda-drivers  cuda-drivers-570  cuda-runtime-12-8  nvidia-driver-cuda  nvidia-opencl-icd 
 
-         export CUDA_HOME=/usr/local/cuda-12.8
-         export C_INCLUDE_PATH=${CUDA_HOME}/include:${C_INCLUDE_PATH}
          
-         #export LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu:${CUDA_HOME}/lib64:${CUDA_HOME}/extras/CUPTI/lib64:${LD_LIBRARY_PATH}
-         export LIBRARY_PATH=${CUDA_HOME}/lib64:${LIBRARY_PATH}
 
        
        
@@ -19,7 +15,10 @@
 
            git clone -b release/7.1 https://github.com/FFmpeg/FFmpeg.git && cd FFmpeg
            
-           export PATH=/usr/local/cuda/bin:${PATH}
+           export PATH=/usr/local/cuda/bin:${PATH}  
+           export LD_LIBRARY_PATH="/usr/local/cuda/lib64:$LD_LIBRARY_PATH"
+
+           
            
          ./configure --prefix=/usr/ --extra-version=3 --toolchain=hardened  \
          --libdir=/usr/lib/x86_64-linux-gnu --incdir=/usr/include/x86_64-linux-gnu --arch=amd64 \
