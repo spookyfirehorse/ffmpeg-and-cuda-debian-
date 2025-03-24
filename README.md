@@ -1,3 +1,7 @@
+     #rt kernel
+      sudo IGNORE_PREEMPT_RT_PRESENCE=1 apt install  linux-headers-6.1.0-32-rt-amd64 linux-image-6.1.0-32-rt-amd64
+ 
+ 
  # cuda nvenc nvdec usw for ffmpeg for debian trixie
        
        
