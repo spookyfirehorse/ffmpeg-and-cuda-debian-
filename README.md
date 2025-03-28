@@ -87,9 +87,13 @@
      sudo meson install -C build
      
      
-#     handbrake
+#                Handbrake
 
           git clone https://github.com/HandBrake/HandBrake.git && cd HandBrake && ./configure --enable-gtk --enable-fdk-aac --enable-nvenc --enable-nvdec    --launch-jobs=$(nproc) --launch && sudo make --directory=build install
+
+#                Mplayer
+
+                    apt source mplayer && cd mplayer-1.5+svn38674/ && ./configure  --enable-faad --enable-gui --disable-ffmpeg_a  --disable-sndio   && make -j4 && sudo make install
 
 ##        nvenc + fdkaac +x11grab
 
