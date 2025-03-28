@@ -16,7 +16,7 @@
        
 # ffmpeg for debian trixie testing
 
-           git clone -b release/7.1 https://github.com/FFmpeg/FFmpeg.git && cd FFmpeg
+           git clone -b release/7.1 --depth 1 https://github.com/FFmpeg/FFmpeg.git && cd FFmpeg
            
            export PATH=/usr/local/cuda/bin:${PATH}  
            export LD_LIBRARY_PATH="/usr/local/cuda/lib64:$LD_LIBRARY_PATH"
