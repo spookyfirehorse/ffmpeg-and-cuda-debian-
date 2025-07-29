@@ -55,7 +55,7 @@
      echo 'deb [signed-by=/usr/share/keyrings/nvidia-drivers.gpg] https://developer.download.nvidia.com/compute/cuda/repos/debian12/x86_64/ /' | sudo tee /etc/apt/sources.list.d/nvidia-drivers.list
 
       apt show cuda-drivers -a
-      sudo apt install nvidia-driver nvidia-cuda-driver cuda
+      sudo apt install nvidia-driver nvidia-cuda-driver cuda-12-9
       sudo apt build-dep ffmpeg
       sudo apt purge  ocl-icd-libopencl1 ocl-icd-opencl-dev
       sudo apt-get install build-essential yasm cmake libtool libc6 libc6-dev unzip wget libnuma1 libnuma-dev
