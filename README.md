@@ -63,27 +63,7 @@
 
          cd ffmpeg?????
  
-         ./configure --prefix=/usr/ --extra-version=3 --toolchain=hardened --libdir=/usr/lib/x86_64-linux-gnu --incdir=/usr/include/x86_64-linux-gnu --arch=amd64 --enable-gpl --disable-stripping --enable-gnutls --enable-ladspa --enable-libaom --           enable-libass --enable-libbluray --enable-libbs2b --enable-libcaca --enable-libcdio --enable-libcodec2 --enable-libdav1d --enable-libflite --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libglslang --enable-               libgme --enable-libgsm --enable-libjack --enable-libmp3lame --enable-libmysofa --enable-libopenjpeg --enable-libopenmpt --enable-libopus --enable-libpulse --enable-librabbitmq --enable-librist --enable-librubberband --enable-libshine --           enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libsrt --enable-libssh --enable-libsvtav1 --enable-libtheora --enable-libtwolame --enable-libvidstab --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libx265 --              enable-libxml2 --enable-libxvid --enable-libzimg --enable-libzmq --enable-libzvbi --enable-lv2 --enable-openal --enable-opengl --enable-sdl2 --disable-sndio --enable-libjxl --enable-pocketsphinx --enable-librsvg --enable-libvpl --enable-          libdc1394 --enable-libdrm --enable-libiec61883 --enable-chromaprint --enable-frei0r --enable-libx264 --enable-libplacebo --enable-librav1e --enable-shared --disable-static --enable-nonfree --enable-cuda-nvcc --enable-cuda-llvm --enable-           vaapi --enable-nvdec --enable-cuvid --enable-nvenc --enable-ffnvcodec --enable-libfdk-aac --enable-libwebp --enable-libaribb24 --enable-libopencore_amrnb --enable-libopencore_amrwb --enable-libtesseract --enable-libvo_amrwbenc --enable-           version3 --enable-cuda-nvcc --enable-libnpp --enable-vulkan
-
-          make -j8
-
-          sudo make install
-       
-
-       
-       
-# ffmpeg for debian trixie testing
-
-           git clone -b release/7.1 --depth 1 https://github.com/FFmpeg/FFmpeg.git && cd FFmpeg
-
-           git clone https://git.videolan.org/git/ffmpeg/nv-codec-headers.git
-           
-           export PATH=/usr/local/cuda/bin:${PATH}  
-           export LD_LIBRARY_PATH="/usr/local/cuda/lib64:$LD_LIBRARY_PATH"
-
-           
-           
-          PATH=/usr/local/cuda/bin:${PATH}   ./configure --prefix=/usr/ --extra-version=3 --toolchain=hardened  \
+         ./configure --prefix=/usr/ --extra-version=3 --toolchain=hardened  \
          --libdir=/usr/lib/x86_64-linux-gnu --incdir=/usr/include/x86_64-linux-gnu --arch=amd64 \
          --enable-gpl --disable-stripping --enable-gnutls --enable-ladspa --enable-libaom  \
          --enable-libass --enable-libbluray --enable-libbs2b --enable-libcaca --enable-libcdio \
@@ -101,10 +81,17 @@
          --enable-shared --disable-static --enable-nonfree --enable-cuda --enable-cuda-llvm --enable-vaapi \
          --enable-nvdec --enable-cuvid --enable-nvenc --enable-ffnvcodec  --enable-libfdk-aac --enable-libwebp \
          --enable-libaribb24 --enable-libopencore_amrnb --enable-libopencore_amrwb --enable-libtesseract \
-         --enable-libvo_amrwbenc --enable-version3 --enable-cuda-nvcc --enable-libnpp --extra-cflags=-I/usr/local/cuda/include --extra-ldflags=-L/usr/local/cuda/lib64  && make -j4 &&  sudo make -j 4 install
+         --enable-libvo_amrwbenc --enable-version3 --enable-cuda-nvcc --enable-libnpp  --enable-vulkan  && make -j4 &&  sudo make -j 4 install
+
+          make -j8
+
+          sudo make install
+       
 
 
-# debiab bookworm 
+
+
+# bookworm 
 
      sudo apt autoremove cuda* nvidia* --purge
      curl -fSsL https://developer.download.nvidia.com/compute/cuda/repos/debian12/x86_64/3bf863cc.pub | sudo gpg --dearmor | sudo tee /usr/share/keyrings/nvidia-drivers.gpg > /dev/null 2>&1
