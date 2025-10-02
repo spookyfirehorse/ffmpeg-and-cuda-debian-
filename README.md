@@ -1,5 +1,7 @@
 # cuda nvenc nvdec usw for ffmpeg for debian trixie
 
+       sudo apt install libfdk* nvidia-cuda-toolkit nvidia-driver nvidia-kernel-dkms
+
        
        sudo nano /usr/src/nvidia-current-550.163.01/dkms.conf 
 
@@ -50,7 +52,6 @@
        sudo apt-get install build-essential yasm cmake libtool libc6 libc6-dev unzip wget libnuma1 libnuma-dev ffmpeg mpv
        sudo apt build-dep ffmpeg mpv
        sudo apt purge  ocl-icd-libopencl1 ocl-icd-opencl-dev 
-       sudo apt install libfdk* nvidia-cuda-toolkit nvidia-driver nvidia-kernel-dkms
      
 # install  rt kernel
 
