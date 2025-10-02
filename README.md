@@ -1,6 +1,11 @@
 # cuda nvenc nvdec usw for ffmpeg for debian trixie
 
-       sudo apt install libfdk* nvidia-cuda-toolkit nvidia-driver nvidia-kernel-dkms
+       sudo apt install libfdk* nvidia-cuda-toolkit nvidia-driver nvidia-kernel-dkms build-essential yasm cmake libtool libc6 libc6-dev unzip wget libnuma1 libnuma-dev ffmpeg mpv
+
+       sudo apt-build-dep ffmpeg mpv
+       
+       sudo apt purge  ocl-icd-libopencl1 ocl-icd-opencl-dev 
+
 
        
        sudo nano /usr/src/nvidia-current-550.163.01/dkms.conf 
@@ -47,11 +52,7 @@
          DEST_MODULE_NAME[4]="$PACKAGE_NAME-peermem"
          DEST_MODULE_LOCATION[4]="/updates/dkms"
 
-# install
-       
-       sudo apt-get install build-essential yasm cmake libtool libc6 libc6-dev unzip wget libnuma1 libnuma-dev ffmpeg mpv
-       sudo apt build-dep ffmpeg mpv
-       sudo apt purge  ocl-icd-libopencl1 ocl-icd-opencl-dev 
+
      
 # install  rt kernel
 
