@@ -1,16 +1,72 @@
-     #rt kernel
-      sudo IGNORE_PREEMPT_RT_PRESENCE=1 apt install  linux-headers-6.1.0-32-rt-amd64 linux-image-6.1.0-32-rt-amd64
- 
- 
- # cuda nvenc nvdec usw for ffmpeg for debian trixie
+# cuda nvenc nvdec usw for ffmpeg for debian trixie
+
        
+       sudo nano /usr/src/nvidia-current-550.163.01/dkms.conf 
+
+# change
+
+        
+        # DKMS configuration for the NVIDIA kernel module.  -*- sh -*-
+
+        PACKAGE_NAME="nvidia-current"
+        PACKAGE_VERSION="550.163.01"
+
+         # Only kernels from 3.10 onwards are supported.
+        #BUILD_EXCLUSIVE_KERNEL="^(3\.[1-9][0-9]|[4-9]\.)"
+
+         # The NVIDIA driver does not support real-time kernels.
+         #BUILD_EXCLUSIVE_CONFIG=""
+         #BUILD_EXCLUSIVE_CONFIG="!CONFIG_PREEMPT_RT !CONFIG_PREEMPT_RT_FULL"
+
+
+         AUTOINSTALL=yes
+
+         MAKE[0]="env NV_VERBOSE=1 \
+          make ${parallel_jobs+-j$parallel_jobs} modules KERNEL_UNAME=${kernelver} IGNORE_XEN_PRESENCE=1 IGNORE_CC_MISMATCH=1 "
+         CLEAN="true"
+
+         BUILT_MODULE_NAME[0]="nvidia"
+         DEST_MODULE_NAME[0]="$PACKAGE_NAME"
+         DEST_MODULE_LOCATION[0]="/updates/dkms"
+
+         BUILT_MODULE_NAME[1]="nvidia-modeset"
+         DEST_MODULE_NAME[1]="$PACKAGE_NAME-modeset"
+         DEST_MODULE_LOCATION[1]="/updates/dkms"
+
+         BUILT_MODULE_NAME[2]="nvidia-drm"
+         DEST_MODULE_NAME[2]="$PACKAGE_NAME-drm"
+         DEST_MODULE_LOCATION[2]="/updates/dkms"
+
+         BUILT_MODULE_NAME[3]="nvidia-uvm"
+         DEST_MODULE_NAME[3]="$PACKAGE_NAME-uvm"
+         DEST_MODULE_LOCATION[3]="/updates/dkms"
+
+         BUILT_MODULE_NAME[4]="nvidia-peermem"
+         DEST_MODULE_NAME[4]="$PACKAGE_NAME-peermem"
+         DEST_MODULE_LOCATION[4]="/updates/dkms"
+
+# install
        
-       sudo apt-get install build-essential yasm cmake libtool libc6 libc6-dev unzip wget libnuma1 libnuma-dev
+       sudo apt-get install build-essential yasm cmake libtool libc6 libc6-dev unzip wget libnuma1 libnuma-dev ffmpeg mpv
        sudo apt build-dep ffmpeg mpv
        sudo apt purge  ocl-icd-libopencl1 ocl-icd-opencl-dev 
-       sudo apt install libfdk*   cuda-12-8  cuda-drivers  cuda-drivers-570  cuda-runtime-12-8  nvidia-driver-cuda  nvidia-opencl-icd 
+       sudo apt install libfdk* nvidia-cuda-toolkit nvidia-driver nvidia-kernel-dkms
+     
+# install  rt kernel
 
-         
+      sudo IGNORE_XEN_PRESENCE=1 IGNORE_CC_MISMATCH=1 IGNORE_PREEMPT_RT_PRESENCE=1 apt install linux-image-rt-amd64 linux-headers-rt-amd64
+
+ 
+         apt source ffmpeg
+
+         cd ffmpeg?????
+ 
+         ./configure --prefix=/usr/ --extra-version=3 --toolchain=hardened --libdir=/usr/lib/x86_64-linux-gnu --incdir=/usr/include/x86_64-linux-gnu --arch=amd64 --enable-gpl --disable-stripping --enable-gnutls --enable-ladspa --enable-libaom --           enable-libass --enable-libbluray --enable-libbs2b --enable-libcaca --enable-libcdio --enable-libcodec2 --enable-libdav1d --enable-libflite --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libglslang --enable-               libgme --enable-libgsm --enable-libjack --enable-libmp3lame --enable-libmysofa --enable-libopenjpeg --enable-libopenmpt --enable-libopus --enable-libpulse --enable-librabbitmq --enable-librist --enable-librubberband --enable-libshine --           enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libsrt --enable-libssh --enable-libsvtav1 --enable-libtheora --enable-libtwolame --enable-libvidstab --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libx265 --              enable-libxml2 --enable-libxvid --enable-libzimg --enable-libzmq --enable-libzvbi --enable-lv2 --enable-openal --enable-opengl --enable-sdl2 --disable-sndio --enable-libjxl --enable-pocketsphinx --enable-librsvg --enable-libvpl --enable-          libdc1394 --enable-libdrm --enable-libiec61883 --enable-chromaprint --enable-frei0r --enable-libx264 --enable-libplacebo --enable-librav1e --enable-shared --disable-static --enable-nonfree --enable-cuda-nvcc --enable-cuda-llvm --enable-           vaapi --enable-nvdec --enable-cuvid --enable-nvenc --enable-ffnvcodec --enable-libfdk-aac --enable-libwebp --enable-libaribb24 --enable-libopencore_amrnb --enable-libopencore_amrwb --enable-libtesseract --enable-libvo_amrwbenc --enable-           version3 --enable-cuda-nvcc --enable-libnpp --enable-vulkan
+
+          make -j8
+
+          sudo make install
+       
 
        
        
