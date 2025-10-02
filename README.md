@@ -6,11 +6,11 @@
        
        sudo apt purge  ocl-icd-libopencl1 ocl-icd-opencl-dev 
 
-
+# dkms.conf
        
        sudo nano /usr/src/nvidia-current-550.163.01/dkms.conf 
 
-# change
+# change to 
 
         
         # DKMS configuration for the NVIDIA kernel module.  -*- sh -*-
