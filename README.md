@@ -121,7 +121,7 @@
 
  #         MPV 
 
-     git clone -b release/0.38 https://github.com/mpv-player/mpv.git
+     git clone -b release/0.40 https://github.com/mpv-player/mpv.git
 
      apt source mpv
 
