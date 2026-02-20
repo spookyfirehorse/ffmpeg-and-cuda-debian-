@@ -235,6 +235,25 @@ make distclean
 make -j$(nproc) && sudo make install && sudo ldconfig
 ```
 
+# ubuntu 26.04 
+
+```bash
+./configure \
+  --prefix=/usr \
+  --libdir=/usr/lib/x86_64-linux-gnu \
+  --cpu=native \
+  --extra-cflags="-march=native -O3 -pipe" \
+  --enable-gpl --enable-version3 --enable-nonfree \
+  --enable-shared --disable-static \
+  --disable-runtime-cpudetect \
+  --enable-cuda-nvcc --enable-libnpp --enable-ffnvcodec --enable-nvenc --enable-nvdec \
+  --enable-vulkan --enable-libplacebo \
+  --enable-libx264 --enable-libx265 --enable-libopus --enable-libfdk-aac --enable-libmp3lame \
+  --enable-libssh --enable-libpulse --enable-alsa \
+  --disable-debug --disable-doc \
+  --disable-vaapi --disable-v4l2-m2m --disable-omx \
+  && make -j$(nproc) && sudo make install && sudo ldconfig
+```
 
  #         MPV 
 
