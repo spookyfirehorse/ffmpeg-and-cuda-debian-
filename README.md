@@ -176,58 +176,24 @@ sudo make install
     # test vaapi
 
 ```bash
-make distclean && ./configure \
+./configure \
   --prefix=/usr \
-  --extra-version=laptop-vaapi-v2026-final \
-  --toolchain=hardened \
-  --arch=x86_64 \
+  --incdir=/usr/include \
+  --libdir=/usr/lib/x86_64-linux-gnu \
+  --extra-version=laptop-vaapi-v2026 \
   --cpu=native \
-  --extra-cflags="-march=native -O2 -pipe -D_GNU_SOURCE -include libavutil/mem.h" \
-  --extra-ldflags="-Wl,-O1,--as-needed" \
-  --enable-gpl \
-  --enable-version3 \
-  --enable-nonfree \
+  --extra-cflags="-O2 -pipe" \
+  --disable-all \
   --enable-shared \
-  --disable-static \
-  --enable-x86asm \
-  --enable-inline-asm \
-  --enable-hardcoded-tables \
-  --enable-vaapi \
-  --enable-libdrm \
-  --enable-opengl \
-  --enable-libpulse \
-  --enable-alsa \
-  --enable-libssh \
-  --enable-network \
-  --enable-libx264 \
-  --enable-libx265 \
-  --enable-libopus \
-  --enable-libfdk-aac \
-  --enable-libmp3lame \
-  --enable-libvorbis \
-  --enable-libdav1d \
-  --enable-gnutls \
-  --enable-libxml2 \
-  --disable-debug \
-  --disable-doc \
-  --disable-htmlpages \
-  --disable-manpages \
-  --disable-podpages \
-  --disable-txtpages \
-  --disable-mmal \
-  --disable-omx \
-  --disable-v4l2-m2m \
-  --disable-cuda \
-  --disable-nvenc \
-  --disable-nvdec \
-  --disable-cuvid \
-  --disable-libnpp \
-  --disable-vulkan \
-  --disable-libmfx \
-  --disable-libvpl \
-  --disable-vdpau && \
-make -j$(nproc) && \
-sudo make install
+  --enable-avcodec --enable-avformat --enable-avfilter --enable-swresample --enable-swscale \
+  --enable-vaapi --enable-libdrm \
+  --enable-encoder=h264_vaapi,hevc_vaapi,vp9_vaapi \
+  --enable-decoder=h264,hevc,vp9,av1 \
+  --enable-hwaccel=h264_vaapi,hevc_vaapi,vp9_vaapi,av1_vaapi \
+  --enable-libx264 --enable-libx265 --enable-libdav1d \
+  --enable-gpl --enable-version3 \
+  --disable-debug --disable-doc && \
+make -j$(nproc) && sudo make install
 ```
 # test cuda
 
