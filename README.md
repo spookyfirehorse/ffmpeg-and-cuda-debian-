@@ -259,6 +259,34 @@ make -j$(nproc) && sudo make install && sudo ldconfig
   --disable-vaapi --disable-v4l2-m2m --disable-omx \
   && make -j$(nproc) && sudo make install && sudo ldconfig
 ```
+## best cuda
+```bash
+make distclean && ./configure \
+  --prefix=/usr \
+  --libdir=/usr/lib/x86_64-linux-gnu \
+  --incdir=/usr/include/x86_64-linux-gnu \
+  --extra-version=cuda-vulkan-2026 \
+  --cpu=native \
+  --extra-cflags="-march=native -O3 -pipe" \
+  --disable-all \
+  --enable-shared --disable-static --disable-debug --disable-doc \
+  --enable-gpl --enable-version3 --enable-nonfree \
+  --enable-avcodec --enable-avformat --enable-avfilter --enable-swresample --enable-swscale \
+  --enable-cuda-nvcc --enable-libnpp --enable-ffnvcodec --enable-nvenc --enable-nvdec \
+  --enable-hwaccel=h264_nvdec,hevc_nvdec,vp9_nvdec,av1_nvdec \
+  --enable-vulkan --enable-libplacebo \
+  --enable-libx264 --enable-libx265 --enable-libfdk-aac --enable-libmp3lame --enable-libopus \
+  --enable-libssh --enable-libpulse --enable-alsa \
+  --enable-gnutls \
+  --enable-network --enable-protocol=file,http,https,tcp,udp,rtp,rtsp,rtmp,ssh,tls \
+  --enable-encoder=h264_nvenc,hevc_nvenc,av1_nvenc,libx264,libx265,libfdk_aac,libmp3lame,libopus \
+  --enable-decoder=h264,hevc,vp9,av1,aac,mp3,opus \
+  --enable-muxer=mp4,mov,matroska,mp3,flv,rtsp \
+  --enable-demuxer=mov,matroska,mp3,flv,rtsp \
+  --enable-parser=h264,hevc,vp9,av1,aac,mpegaudio \
+  --enable-filter=scale_npp,yadif_cuda,overlay_cuda \
+  && make -j$(nproc) && sudo make install && sudo ldconfig
+```
 
  #         MPV 
 
