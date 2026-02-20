@@ -87,6 +87,35 @@ make -j$(nproc) && \
 sudo make install
 
 
+ # ubuntu 26.04 ffmpeg 8.0
+
+```bash
+ ./configure --prefix=/usr --extra-version=3 --toolchain=hardened \
+    --libdir=/usr/lib/x86_64-linux-gnu --incdir=/usr/include/x86_64-linux-gnu --arch=amd64 \
+    --enable-gpl --enable-version3 --enable-nonfree --enable-shared --disable-static \
+    --disable-stripping --disable-sndio \
+    --enable-gnutls --enable-libxml2 --enable-libfontconfig --enable-libfreetype --enable-libfribidi \
+    --enable-libass --enable-libbluray --enable-libbs2b --enable-libcaca --enable-libcdio \
+    --enable-libcodec2 --enable-libdav1d --enable-libflite --enable-libgme --enable-libgsm \
+    --enable-libjack --enable-libmp3lame --enable-libmysofa --enable-libopenjpeg --enable-libopenmpt \
+    --enable-libopus --enable-libpulse --enable-librabbitmq --enable-librist --enable-librubberband \
+    --enable-libshine --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libsrt --enable-libssh \
+    --enable-libsvtav1 --enable-libtheora --enable-libtwolame --enable-libvidstab --enable-libvorbis \
+    --enable-libvpx --enable-libwebp --enable-libx265 --enable-libx264 --enable-libxvid \
+    --enable-libzimg --enable-libzmq --enable-libzvbi --enable-lv2 --enable-openal \
+    --enable-opengl --enable-sdl2 --enable-libjxl --enable-pocketsphinx --enable-librsvg \
+    --enable-libvpl --enable-libdc1394 --enable-libdrm --enable-libiec61883 --enable-chromaprint \
+    --enable-frei0r --enable-libplacebo --enable-librav1e --enable-libaom --enable-ladspa \
+    --enable-cuda --enable-cuda-llvm --enable-cuda-nvcc --enable-nvdec --enable-cuvid \
+    --enable-nvenc --enable-ffnvcodec --enable-libnpp --enable-vaapi --enable-vulkan \
+    --enable-libfdk-aac --enable-libaribb24 --enable-libopencore-amrnb --enable-libopencore-amrwb \
+    --enable-libtesseract --enable-libvo-amrwbenc --enable-libglslang && \
+make -j$(nproc) && \
+sudo make install
+
+
+
+
 # bookworm 
 
      sudo apt autoremove cuda* nvidia* --purge
