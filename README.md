@@ -176,92 +176,43 @@ sudo make install
     # test vaapi
 
 ```bash
+make distclean
+
 ./configure \
   --prefix=/usr \
-  --incdir=/usr/include \
   --libdir=/usr/lib/x86_64-linux-gnu \
+  --incdir=/usr/include/x86_64-linux-gnu \
   --extra-version=laptop-vaapi-v2026 \
   --cpu=native \
   --extra-cflags="-O2 -pipe" \
   --disable-all \
-  --enable-shared \
+  --enable-ffmpeg \
+  --enable-avdevice \
+  --enable-pthreads \
+  --enable-shared --disable-static --disable-debug --disable-doc \
+  --enable-gpl --enable-version3 --enable-nonfree \
   --enable-avcodec --enable-avformat --enable-avfilter --enable-swresample --enable-swscale \
   --enable-vaapi --enable-libdrm \
-  --enable-encoder=h264_vaapi,hevc_vaapi,vp9_vaapi \
-  --enable-decoder=h264,hevc,vp9,av1 \
-  --enable-hwaccel=h264_vaapi,hevc_vaapi,vp9_vaapi,av1_vaapi \
-  --enable-libx264 --enable-libx265 --enable-libdav1d \
-  --enable-gpl --enable-version3 \
-  --disable-debug --disable-doc && \
-make -j$(nproc) && sudo make install
+  --enable-network --enable-libssh \
+  --enable-protocol=file,http,https,tcp,udp,rtp,rtsp,rtmp,ssh,tls \
+  --enable-libpulse --enable-libfdk-aac --enable-libmp3lame \
+  --enable-hwaccel=h264_vaapi \
+  --enable-encoder=h264_vaapi,libfdk_aac,libmp3lame,libx264 \
+  --enable-decoder=h264,aac,mp3 \
+  --enable-muxer=mp4,mov,matroska,mp3 \
+  --enable-demuxer=mov,matroska,mp3,rtsp,rtmp \
+  --enable-parser=h264,aac,mpegaudio \
+  --enable-bsfs \
+  --enable-filter=scale,scale_vaapi,copy,format,aresample \
+  && make -j$(nproc) && sudo make install && sudo ldconfig
+
 ```
 # test cuda
 
 ```bash
-# 1. Radikaler Reset, um alte Konfigurationsreste zu entfernen
 make distclean
 
-# 2. Configure mit expliziten Debian/Ubuntu Systempfaden
-./configure --prefix=/usr \
---libdir=/usr/lib/x86_64-linux-gnu \
---incdir=/usr/include/x86_64-linux-gnu \
---extra-version=pc-rt-cuda-vulkan-final \
---toolchain=hardened --arch=x86_64 --cpu=native \
---extra-cflags="-march=native -O3 -pipe -I/usr/include/x86_64-linux-gnu" \
---extra-ldflags="-L/usr/lib/x86_64-linux-gnu -Wl,-O1,--as-needed" \
---enable-gpl --enable-version3 --enable-nonfree --enable-shared --disable-static \
---enable-cuda-nvcc --enable-libnpp --enable-ffnvcodec --enable-cuda-llvm \
---enable-nvenc --enable-nvdec --enable-cuvid \
---enable-vulkan --enable-libplacebo --enable-opengl \
---enable-libpulse --enable-alsa --enable-libssh --enable-network \
---enable-libx264 --enable-libx265 --enable-libopus --enable-libfdk-aac --enable-libmp3lame \
---enable-gnutls --enable-libxml2 --enable-x86asm --enable-inline-asm \
---disable-debug --disable-doc --disable-vaapi --disable-v4l2-m2m --disable-mmal --disable-omx && \
-make -j$(nproc) && sudo make install
-```
-```bash
-# 1. Radikaler Reset
-make distclean
-
-# 2. Schlanker "Next-Level" PC-Build
-./configure --prefix=/usr \
---libdir=/usr/lib/x86_64-linux-gnu --incdir=/usr/include/x86_64-linux-gnu \
---extra-version=pc-rt-ultra-lean --toolchain=hardened \
---arch=x86_64 --cpu=native --enable-x86asm \
---extra-cflags="-march=native -O3 -pipe" \
---extra-ldflags="-Wl,-O1,--as-needed" \
---enable-gpl --enable-version3 --enable-nonfree --enable-shared --disable-static \
---enable-cuda-nvcc --enable-ffnvcodec --enable-nvenc --enable-nvdec --enable-cuvid \
---enable-vulkan --enable-libplacebo --enable-opengl \
---enable-libpulse --enable-alsa --enable-libssh --enable-network \
---enable-libx264 --enable-libx265 --enable-libopus --enable-libfdk-aac --enable-libmp3lame \
---enable-gnutls --enable-libxml2 \
---disable-debug --disable-doc --disable-vaapi --disable-v4l2-m2m --disable-mmal --disable-omx && \
-make -j$(nproc) && sudo make install && sudo ldconfig
-```
-
-# ubuntu 26.04 
-
-```bash
 ./configure \
-  --prefix=/usr \
-  --libdir=/usr/lib/x86_64-linux-gnu \
-  --cpu=native \
-  --extra-cflags="-march=native -O3 -pipe" \
-  --enable-gpl --enable-version3 --enable-nonfree \
-  --enable-shared --disable-static \
-  --disable-runtime-cpudetect \
-  --enable-cuda-nvcc --enable-libnpp --enable-ffnvcodec --enable-nvenc --enable-nvdec \
-  --enable-vulkan --enable-libplacebo \
-  --enable-libx264 --enable-libx265 --enable-libopus --enable-libfdk-aac --enable-libmp3lame \
-  --enable-libssh --enable-libpulse --enable-alsa \
-  --disable-debug --disable-doc \
-  --disable-vaapi --disable-v4l2-m2m --disable-omx \
-  && make -j$(nproc) && sudo make install && sudo ldconfig
-```
-## best cuda
-```bash
-make distclean && ./configure \
   --prefix=/usr \
   --libdir=/usr/lib/x86_64-linux-gnu \
   --incdir=/usr/include/x86_64-linux-gnu \
@@ -269,6 +220,9 @@ make distclean && ./configure \
   --cpu=native \
   --extra-cflags="-march=native -O3 -pipe" \
   --disable-all \
+  --enable-ffmpeg \
+  --enable-avdevice \
+  --enable-pthreads \
   --enable-shared --disable-static --disable-debug --disable-doc \
   --enable-gpl --enable-version3 --enable-nonfree \
   --enable-avcodec --enable-avformat --enable-avfilter --enable-swresample --enable-swscale \
@@ -276,15 +230,47 @@ make distclean && ./configure \
   --enable-hwaccel=h264_nvdec,hevc_nvdec,vp9_nvdec,av1_nvdec \
   --enable-vulkan --enable-libplacebo \
   --enable-libx264 --enable-libx265 --enable-libfdk-aac --enable-libmp3lame --enable-libopus \
-  --enable-libssh --enable-libpulse --enable-alsa \
   --enable-gnutls \
-  --enable-network --enable-protocol=file,http,https,tcp,udp,rtp,rtsp,rtmp,ssh,tls \
+  --enable-network --enable-protocol=file,http,https,tcp,udp,rtp,rtsp,rtmp,tls \
+  --enable-libpulse --enable-alsa \
   --enable-encoder=h264_nvenc,hevc_nvenc,av1_nvenc,libx264,libx265,libfdk_aac,libmp3lame,libopus \
   --enable-decoder=h264,hevc,vp9,av1,aac,mp3,opus \
   --enable-muxer=mp4,mov,matroska,mp3,flv,rtsp \
   --enable-demuxer=mov,matroska,mp3,flv,rtsp \
   --enable-parser=h264,hevc,vp9,av1,aac,mpegaudio \
-  --enable-filter=scale_npp,yadif_cuda,overlay_cuda \
+  --enable-bsfs \
+  --enable-filter=scale_npp,yadif_cuda,overlay_cuda,scale,copy,format,aresample \
+  && make -j$(nproc) && sudo make install && sudo ldconfig
+
+```
+
+## best final high end cuda
+```bash
+make distclean
+
+./configure \
+  --prefix=/usr/local \
+  --extra-version=cuda-vulkan-2026 \
+  --cpu=native \
+  --extra-cflags="-march=native -O3 -pipe" \
+  --disable-all \
+  --enable-ffmpeg \
+  --enable-shared --disable-static --disable-debug --disable-doc \
+  --enable-gpl --enable-version3 --enable-nonfree \
+  --enable-avcodec --enable-avformat --enable-avfilter --enable-swresample --enable-swscale \
+  --enable-cuda-nvcc --enable-libnpp --enable-ffnvcodec --enable-nvenc --enable-nvdec \
+  --enable-hwaccel=h264_nvdec,hevc_nvdec,vp9_nvdec,av1_nvdec \
+  --enable-vulkan --enable-libplacebo \
+  --enable-libx264 --enable-libx265 --enable-libfdk-aac --enable-libmp3lame --enable-libopus \
+  --enable-gnutls \
+  --enable-network --enable-protocol=file,http,https,tcp,udp,rtp,rtsp,rtmp,tls \
+  --enable-encoder=h264_nvenc,hevc_nvenc,av1_nvenc,libx264,libx265,libfdk_aac,libmp3lame,libopus \
+  --enable-decoder=h264,hevc,vp9,av1,aac,mp3,opus \
+  --enable-muxer=mp4,mov,matroska,mp3,flv,rtsp \
+  --enable-demuxer=mov,matroska,mp3,flv,rtsp \
+  --enable-parser=h264,hevc,vp9,av1,aac,mpegaudio \
+  --enable-bsfs \
+  --enable-filter=scale_npp,yadif_cuda,overlay_cuda,scale,copy,format,aresample \
   && make -j$(nproc) && sudo make install && sudo ldconfig
 ```
 
