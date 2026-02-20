@@ -62,33 +62,29 @@
          apt source ffmpeg
 
          cd ffmpeg?????
- 
-         ./configure --prefix=/usr/ --extra-version=3 --toolchain=hardened  \
-         --libdir=/usr/lib/x86_64-linux-gnu --incdir=/usr/include/x86_64-linux-gnu --arch=amd64 \
-         --enable-gpl --disable-stripping --enable-gnutls --enable-ladspa --enable-libaom  \
-         --enable-libass --enable-libbluray --enable-libbs2b --enable-libcaca --enable-libcdio \
-         --enable-libcodec2 --enable-libdav1d --enable-libflite --enable-libfontconfig \
-         --enable-libfreetype --enable-libfribidi --enable-libglslang --enable-libgme --enable-libgsm \
-         --enable-libjack --enable-libmp3lame --enable-libmysofa --enable-libopenjpeg --enable-libopenmpt \
-         --enable-libopus --enable-libpulse --enable-librabbitmq --enable-librist --enable-librubberband \
-         --enable-libshine --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libsrt --enable-libssh \
-         --enable-libsvtav1 --enable-libtheora --enable-libtwolame --enable-libvidstab --enable-libvorbis \
-         --enable-libvpx --enable-libwebp --enable-libx265 --enable-libxml2 --enable-libxvid \
-         --enable-libzimg --enable-libzmq --enable-libzvbi --enable-lv2  --enable-openal \
-         --enable-opengl --enable-sdl2 --disable-sndio --enable-libjxl --enable-pocketsphinx \
-         --enable-librsvg --enable-libvpl --enable-libdc1394 --enable-libdrm --enable-libiec61883 \
-         --enable-chromaprint --enable-frei0r --enable-libx264 --enable-libplacebo --enable-librav1e \
-         --enable-shared --disable-static --enable-nonfree --enable-cuda --enable-cuda-llvm --enable-vaapi \
-         --enable-nvdec --enable-cuvid --enable-nvenc --enable-ffnvcodec  --enable-libfdk-aac --enable-libwebp \
-         --enable-libaribb24 --enable-libopencore_amrnb --enable-libopencore_amrwb --enable-libtesseract \
-         --enable-libvo_amrwbenc --enable-version3 --enable-cuda-nvcc --enable-libnpp  --enable-vulkan  && make -j4 &&  sudo make -j 4 install
-
-          make -j8
-
-          sudo make install
-       
-
-
+ ```bash
+ ./configure --prefix=/usr --extra-version=3 --toolchain=hardened \
+    --libdir=/usr/lib/x86_64-linux-gnu --incdir=/usr/include/x86_64-linux-gnu --arch=amd64 \
+    --enable-gpl --enable-version3 --enable-nonfree --enable-shared --disable-static \
+    --disable-stripping --disable-sndio \
+    --enable-gnutls --enable-libxml2 --enable-libfontconfig --enable-libfreetype --enable-libfribidi \
+    --enable-libass --enable-libbluray --enable-libbs2b --enable-libcaca --enable-libcdio \
+    --enable-libcodec2 --enable-libdav1d --enable-libflite --enable-libgme --enable-libgsm \
+    --enable-libjack --enable-libmp3lame --enable-libmysofa --enable-libopenjpeg --enable-libopenmpt \
+    --enable-libopus --enable-libpulse --enable-librabbitmq --enable-librist --enable-librubberband \
+    --enable-libshine --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libsrt --enable-libssh \
+    --enable-libsvtav1 --enable-libtheora --enable-libtwolame --enable-libvidstab --enable-libvorbis \
+    --enable-libvpx --enable-libwebp --enable-libx265 --enable-libx264 --enable-libxvid \
+    --enable-libzimg --enable-libzmq --enable-libzvbi --enable-lv2 --enable-openal \
+    --enable-opengl --enable-sdl2 --enable-libjxl --enable-pocketsphinx --enable-librsvg \
+    --enable-libvpl --enable-libdc1394 --enable-libdrm --enable-libiec61883 --enable-chromaprint \
+    --enable-frei0r --enable-libplacebo --enable-librav1e --enable-libaom --enable-ladspa \
+    --enable-cuda --enable-cuda-llvm --enable-cuda-nvcc --enable-nvdec --enable-cuvid \
+    --enable-nvenc --enable-ffnvcodec --enable-libnpp --enable-vaapi --enable-vulkan \
+    --enable-libfdk-aac --enable-libaribb24 --enable-libopencore-amrnb --enable-libopencore-amrwb \
+    --enable-libtesseract --enable-libvo-amrwbenc --enable-glslang && \
+make -j$(nproc) && \
+sudo make install
 
 
 # bookworm 
