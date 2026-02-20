@@ -209,7 +209,7 @@ sudo make install
   --enable-libopus \
   --enable-gnutls \
   --enable-network \
-  --enable-libpulse \
+  --enable-libpulse --enable-avfilter --enable-filter=fps --enable-filter=crystalizer \
   --enable-protocol=file,http,https,tcp,udp,rtp,rtsp,rtmp,tls \
   --enable-encoder=h264_vaapi,hevc_vaapi,av1_vaapi,libx264,libx265,libfdk_aac,libmp3lame,libopus \
   --enable-decoder=h264,hevc,vp9,av1,aac,mp3,opus \
@@ -243,7 +243,7 @@ make distclean
   --enable-hwaccel=h264_nvdec,hevc_nvdec,vp9_nvdec,av1_nvdec \
   --enable-vulkan --enable-libplacebo \
   --enable-libx264 --enable-libx265 --enable-libfdk-aac --enable-libmp3lame --enable-libopus \
-  --enable-gnutls \
+  --enable-gnutls--enable-avfilter --enable-filter=fps --enable-filter=crystalizer  \
   --enable-network --enable-protocol=file,http,https,tcp,udp,rtp,rtsp,rtmp,tls \
   --enable-encoder=h264_nvenc,hevc_nvenc,av1_nvenc,libx264,libx265,libfdk_aac,libmp3lame,libopus \
   --enable-decoder=h264,hevc,vp9,av1,aac,mp3,opus \
