@@ -193,20 +193,48 @@ make -j$(nproc) && sudo make install
 # test cuda
 
 ```bash
-./configure --prefix=/usr --extra-version=pc-ultra-v2026 --toolchain=hardened \
---arch=x86_64 --cpu=native \
+# 1. Radikaler Reset, um alte Konfigurationsreste zu entfernen
+make distclean
+
+# 2. Configure mit expliziten Debian/Ubuntu Systempfaden
+./configure --prefix=/usr \
+--libdir=/usr/lib/x86_64-linux-gnu \
+--incdir=/usr/include/x86_64-linux-gnu \
+--extra-version=pc-rt-cuda-vulkan-final \
+--toolchain=hardened --arch=x86_64 --cpu=native \
+--extra-cflags="-march=native -O3 -pipe -I/usr/include/x86_64-linux-gnu" \
+--extra-ldflags="-L/usr/lib/x86_64-linux-gnu -Wl,-O1,--as-needed" \
+--enable-gpl --enable-version3 --enable-nonfree --enable-shared --disable-static \
+--enable-cuda-nvcc --enable-libnpp --enable-ffnvcodec --enable-cuda-llvm \
+--enable-nvenc --enable-nvdec --enable-cuvid \
+--enable-vulkan --enable-libplacebo --enable-opengl \
+--enable-libpulse --enable-alsa --enable-libssh --enable-network \
+--enable-libx264 --enable-libx265 --enable-libopus --enable-libfdk-aac --enable-libmp3lame \
+--enable-gnutls --enable-libxml2 --enable-x86asm --enable-inline-asm \
+--disable-debug --disable-doc --disable-vaapi --disable-v4l2-m2m --disable-mmal --disable-omx && \
+make -j$(nproc) && sudo make install
+```
+```bash
+# 1. Radikaler Reset
+make distclean
+
+# 2. Schlanker "Next-Level" PC-Build
+./configure --prefix=/usr \
+--libdir=/usr/lib/x86_64-linux-gnu --incdir=/usr/include/x86_64-linux-gnu \
+--extra-version=pc-rt-ultra-lean --toolchain=hardened \
+--arch=x86_64 --cpu=native --enable-x86asm \
 --extra-cflags="-march=native -O3 -pipe" \
 --extra-ldflags="-Wl,-O1,--as-needed" \
 --enable-gpl --enable-version3 --enable-nonfree --enable-shared --disable-static \
---enable-x86asm --enable-inline-asm --enable-hardcoded-tables \
---enable-vaapi --enable-libdrm --enable-opengl \
+--enable-cuda-nvcc --enable-ffnvcodec --enable-nvenc --enable-nvdec --enable-cuvid \
+--enable-vulkan --enable-libplacebo --enable-opengl \
 --enable-libpulse --enable-alsa --enable-libssh --enable-network \
 --enable-libx264 --enable-libx265 --enable-libopus --enable-libfdk-aac --enable-libmp3lame \
---enable-libvorbis --enable-gnutls --enable-libxml2 \
---disable-debug --disable-doc --disable-mmal --disable-omx --disable-v4l2-m2m \
---disable-cuda --disable-nvenc --disable-nvdec && \
-make -j$(nproc) && sudo make install
+--enable-gnutls --enable-libxml2 \
+--disable-debug --disable-doc --disable-vaapi --disable-v4l2-m2m --disable-mmal --disable-omx && \
+make -j$(nproc) && sudo make install && sudo ldconfig
 ```
+
 
  #         MPV 
 
