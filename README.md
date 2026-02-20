@@ -226,7 +226,9 @@ sudo make install
 make distclean
 
 ./configure \
-  --prefix=/usr/local \
+  --prefix=/usr/ \
+  --libdir=/usr/lib/x86_64-linux-gnu \
+  --incdir=/usr/include/x86_64-linux-gnu \
   --extra-version=cuda-vulkan-2026 \
   --cpu=native \
   --extra-cflags="-march=native -O3 -pipe" \
