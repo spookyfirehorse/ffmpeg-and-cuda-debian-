@@ -94,7 +94,7 @@
  --enable-encoder=h264_vulkan,hevc_vulkan,av1_vulkan,ffv1_vulkan,h264_nvenc,hevc_nvenc,av1_nvenc,aac,libmp3lame,libopus,flac,alac,pcm_s16le,pcm_s24le,pcm_s32le,pcm_f32le \
  --enable-parser=h264,hevc,vp8,vp9,mjpeg,mpegvideo,mpeg4video,aac,mp3,flac,opus,vc1 \
  --enable-bsf=h264_mp4toannexb,hevc_mp4toannexb,mpeg4_unpack_bframes,aac_adtstoasc,pgs_frame_merge,vp9_superframe,vp9_superframe_split \
- --enable-ladspa --enable-lv2 --enable-librubberband --enable-libsoxr --enable-libbs2b --enable-libmysofa --enable-libglslang \
+ --enable-ladspa --enable-lv2 --enable-librubberband --enable-libsoxr --enable-libbs2b --enable-libmysofa  \
  --enable-lto && \
 make -j$(nproc) && \
 sudo make install
