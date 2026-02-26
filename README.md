@@ -63,26 +63,39 @@
 
          cd ffmpeg?????
  ```bash
- ./configure --prefix=/usr --extra-version=3 --toolchain=hardened \
-    --libdir=/usr/lib/x86_64-linux-gnu --incdir=/usr/include/x86_64-linux-gnu --arch=amd64 \
-    --enable-gpl --enable-version3 --enable-nonfree --enable-shared --disable-static \
-    --disable-stripping --disable-sndio \
-    --enable-gnutls --enable-libxml2 --enable-libfontconfig --enable-libfreetype --enable-libfribidi \
-    --enable-libass --enable-libbluray --enable-libbs2b --enable-libcaca --enable-libcdio \
-    --enable-libcodec2 --enable-libdav1d --enable-libflite --enable-libgme --enable-libgsm \
-    --enable-libjack --enable-libmp3lame --enable-libmysofa --enable-libopenjpeg --enable-libopenmpt \
-    --enable-libopus --enable-libpulse --enable-librabbitmq --enable-librist --enable-librubberband \
-    --enable-libshine --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libsrt --enable-libssh \
-    --enable-libsvtav1 --enable-libtheora --enable-libtwolame --enable-libvidstab --enable-libvorbis \
-    --enable-libvpx --enable-libwebp --enable-libx265 --enable-libx264 --enable-libxvid \
-    --enable-libzimg --enable-libzmq --enable-libzvbi --enable-lv2 --enable-openal \
-    --enable-opengl --enable-sdl2 --enable-libjxl --enable-pocketsphinx --enable-librsvg \
-    --enable-libvpl --enable-libdc1394 --enable-libdrm --enable-libiec61883 --enable-chromaprint \
-    --enable-frei0r --enable-libplacebo --enable-librav1e --enable-libaom --enable-ladspa \
-    --enable-cuda --enable-cuda-llvm --enable-cuda-nvcc --enable-nvdec --enable-cuvid \
-    --enable-nvenc --enable-ffnvcodec --enable-libnpp --enable-vaapi --enable-vulkan \
-    --enable-libfdk-aac --enable-libaribb24 --enable-libopencore-amrnb --enable-libopencore-amrwb \
-    --enable-libtesseract --enable-libvo-amrwbenc --enable-glslang && \
+./configure --prefix=/usr \
+  --libdir=/usr/lib/x86_64-linux-gnu \
+  --incdir=/usr/include \
+  --extra-cflags="-march=skylake -mtune=skylake -O3 -pipe -ftree-vectorize -mavx2 -mfma -ffast-math" \
+  --extra-cxxflags="-march=skylake -mtune=skylake -O3 -pipe -ftree-vectorize -mavx2 -mfma -ffast-math" \
+  --extra-ldflags="-L/usr/lib/x86_64-linux-gnu -Wl,-O1 -Wl,--as-needed" \
+  --disable-all \
+  --enable-ffmpeg --enable-ffprobe \
+  --enable-avdevice --enable-avcodec --enable-avformat --enable-avfilter \
+  --enable-swresample --enable-swscale \
+  --enable-pthreads --enable-shared --disable-static \
+  --disable-debug --disable-doc \
+  --enable-gpl --enable-version3 --enable-nonfree \
+  --enable-cuda-nvcc --enable-libnpp --enable-ffnvcodec --enable-nvenc --enable-nvdec \
+  --enable-hwaccel=mpeg1_nvdec,mpeg2_nvdec,mpeg4_nvdec,h264_nvdec,hevc_nvdec,vp8_nvdec,vp9_nvdec,av1_nvdec,vc1_nvdec,wmv3_nvdec,mjpeg_nvdec \
+  --enable-vulkan --enable-libplacebo \
+  --disable-vaapi --disable-vdpau \
+  --enable-libfdk-aac --enable-libmp3lame --enable-libopus --enable-libvorbis --enable-libvpx \
+  --enable-libfreetype --enable-libharfbuzz --enable-libfribidi \
+  --enable-gnutls --enable-gcrypt --enable-network \
+  --enable-libpulse --enable-libjack --enable-alsa \
+  --enable-indev=v4l2,alsa,pulse,jack,fbdev,lavfi \
+  --enable-outdev=v4l2,alsa,pulse,jack,fbdev,drm \
+  --enable-filter=afifo,anull,asplit,aresample,aformat,amix,vulkan,libplacebo,scale,format,fps,crystalizer,bass,treble,equalizer,volume,loudnorm,anequalizer,surround,stereowiden,sidechaincompress,ladspa,lv2,rubberband,crop,overlay,drawtext,boxblur,unsharp,yadif \
+  --enable-protocol=file,http,https,tcp,udp,rtp,rtsp,rtmp,rtmpt,rtmpe,rtmps,hls,pipe,crypto,tls \
+  --enable-demuxer=mov,matroska,flac,wav,mp3,ogg,aac,avi,h264,hevc,rtsp,sdp,rtp,rtmp,hls,flv,mpegts,mpegvideo,ape,dsf,mjpeg,vc1,wmv \
+  --enable-muxer=mp4,mkv,flac,wav,mp3,opus,ogg,rtsp,rtp,sdp,rtmp,flv,hls,mpegts,pcm_s16le,pcm_s24le,pcm_s32le,adts,latm,null,matroska,ipod,ismv,dash \
+  --enable-decoder=h264,hevc,vp8,vp9,mjpeg,mpeg1video,mpeg2video,mpeg4,vc1,wmv3,aac,mp3,flac,alac,ape,wavpack,vorbis,dvdsub,pgssub,ass,srt,flv,pcm_s16le,pcm_s24le,pcm_s32le,pcm_f32le,pcm_f64le,dsd_lsbf,dsd_msbf \
+  --enable-encoder=h264_nvenc,hevc_nvenc,av1_nvenc,aac,libmp3lame,libopus,flac,alac,pcm_s16le,pcm_s24le,pcm_s32le,pcm_f32le \
+  --enable-parser=h264,hevc,vp8,vp9,mjpeg,mpegvideo,mpeg4video,aac,mp3,flac,opus,vc1 \
+  --enable-bsf=h264_mp4toannexb,hevc_mp4toannexb,mpeg4_unpack_bframes,aac_adtstoasc,pgs_frame_merge,vp9_superframe,vp9_superframe_split \
+  --enable-ladspa --enable-lv2 --enable-librubberband --enable-libsoxr --enable-libbs2b --enable-libmysofa --enable-libglslang \
+  --enable-lto && \
 make -j$(nproc) && \
 sudo make install
 
