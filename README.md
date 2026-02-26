@@ -187,91 +187,35 @@ sudo make install
   --disable-hwaccel='h263_vaapi,vc1_vaapi,wmv3_vaapi' \
   && make -j$(nproc) && sudo make install && sudo ldconfig
 ```
-# test cuda
 
-```bash
-make distclean
-
-./configure \
-  --prefix=/usr/ \
-  --libdir=/usr/lib/x86_64-linux-gnu \
-  --incdir=/usr/include/x86_64-linux-gnu \
-  --extra-version=cuda-vulkan-2026 \
-  --cpu=native \
-  --extra-cflags="-march=native -O3 -pipe" \
-  --disable-all \
-  --enable-ffmpeg \
-  --enable-avdevice \
-  --enable-pthreads \
-  --enable-shared --disable-static --disable-debug --disable-doc \
-  --enable-gpl --enable-version3 --enable-nonfree \
-  --enable-avcodec --enable-avformat --enable-avfilter --enable-swresample --enable-swscale \
-  --enable-cuda-nvcc --enable-libnpp --enable-ffnvcodec --enable-nvenc --enable-nvdec \
-  --enable-hwaccel=h264_nvdec,hevc_nvdec,vp9_nvdec,av1_nvdec \
-  --enable-vulkan --enable-libplacebo \
-  --enable-libx264 --enable-libx265 --enable-libfdk-aac --enable-libmp3lame --enable-libopus \
-  --enable-gnutls--enable-avfilter --enable-filter=fps --enable-filter=crystalizer  \
-  --enable-network --enable-protocol=file,http,https,tcp,udp,rtp,rtsp,rtmp,tls \
-  --enable-encoder=h264_nvenc,hevc_nvenc,av1_nvenc,libx264,libx265,libfdk_aac,libmp3lame,libopus \
-  --enable-decoder=h264,hevc,vp9,av1,aac,mp3,opus \
-  --enable-muxer=mp4,mov,matroska,mp3,flv,rtsp \
-  --enable-demuxer=mov,matroska,mp3,flv,rtsp \
-  --enable-parser=h264,hevc,vp9,av1,aac,mpegaudio \
-  --enable-bsfs \
-  --enable-filter=scale_npp,yadif_cuda,overlay_cuda,scale,copy,format,aresample \
-  && make -j$(nproc) && sudo make install && sudo ldconfig
+``bash
+sudo apt build-dep mpv && apt source mpv
 ```
 
-## best final high end cuda
-```bash
-./configure \
-  --prefix=/usr \
+``bash
+--prefix=/usr \
   --libdir=/usr/lib/x86_64-linux-gnu \
-  --incdir=/usr/include/x86_64-linux-gnu \
-  --extra-version=cuda-vulkan-2026 \
-  --cpu=native \
-  --extra-cflags="-march=native -O3 -pipe" \
-  --disable-all \
-  --enable-pthreads \
-  --enable-avcodec \
-  --enable-avformat \
-  --enable-avfilter \
-  --enable-avdevice \
-  --enable-swresample \
-  --enable-swscale \
-  --enable-ffmpeg \
-  --enable-shared \
-  --disable-static \
-  --disable-debug \
-  --disable-doc \
-  --enable-gpl \
-  --enable-version3 \
-  --enable-nonfree \
-  --enable-cuda-nvcc \
-  --enable-libnpp \
-  --enable-ffnvcodec \
-  --enable-nvenc \
-  --enable-nvdec \
-  --enable-hwaccel=h264_nvdec,hevc_nvdec,vp9_nvdec,av1_nvdec \
-  --enable-vulkan \
-  --enable-libplacebo \
-  --enable-libx264 \
-  --enable-libx265 \
-  --enable-libfdk-aac \
-  --enable-libmp3lame \
-  --enable-libopus \
-  --enable-gnutls \
-  --enable-network \
-  --enable-libpulse \
-  --enable-protocol=file,http,https,tcp,udp,rtp,rtsp,rtmp,tls \
-  --enable-encoder=h264_nvenc,hevc_nvenc,av1_nvenc,libx264,libx265,libfdk_aac,libmp3lame,libopus \
-  --enable-decoder=h264,hevc,vp9,av1,aac,mp3,opus \
-  --enable-muxer=mp4,mov,matroska,mp3,flv,rtsp \
-  --enable-demuxer=mov,matroska,mp3,flv,rtsp \
-  --enable-parser=h264,hevc,vp9,av1,aac,mpegaudio \
-  --enable-bsfs \
-  --enable-filter=scale_npp,yadif_cuda,overlay_cuda,scale,copy,format,aresample
-```
+  -Dbuildtype=release \
+  -Doptimization=3 \
+  -Db_lto=true \
+  -Db_pie=true \
+  -Dc_args='-O3 -pipe -march=goldmont -mtune=goldmont -mfpmath=sse -msse4.2 -ftree-vectorize -ffast-math -fno-semantic-interposition -fPIC' \
+  -Dcpp_args='-O3 -pipe -march=goldmont -mtune=goldmont -mfpmath=sse -msse4.2 -ftree-vectorize -ffast-math -fno-semantic-interposition -fPIC' \
+  -Dc_link_args='-Wl,-O1,--as-needed -fPIC -lstdc++ -lm -lpthread' \
+  -Dcpp_link_args='-Wl,-O1,--as-needed -fPIC -lstdc++ -lm -lpthread' \
+  -Dpipewire=enabled \
+  -Dvulkan=enabled \
+  -Dshaderc=disabled \
+  -Dvaapi=enabled \
+  -Dalsa=enabled \
+  -Dwayland=enabled \
+  -Dx11=enabled \
+  -Dlibmpv=true \
+  -Dbuild-date=false \
+  -Dpython.bytecompile=-1
+
+
+
 
  #         MPV 
 
@@ -280,9 +224,9 @@ make distclean
      apt source mpv
 
      meson setup build
-     
-             meson configure build -Dprefix=/usr -Dlibmpv=true -Ddvdnav=enabled -Dsdl2=enabled -Dzimg=enabled -Degl=enabled -Dwayland=enabled -Degl-wayland=enabled  -Dvaapi=enabled -Dvdpau=enabled    -Dvulkan=enabled  -Dcuda-interop=enabled -Dzlib=enabled -Ddrm=enabled -Ddmabuf-wayland=enabled -Dalsa=enabled -Dcuda-hwaccel=enabled -Dpipewire=enabled  -Ddmabuf-wayland=enabled -Dvaapi-x11=enabled  -Dvaapi-wayland=enabled -Dvaapi-drm=enabled  -Dvapoursynth=enabled
-
+``bash     
+meson configure build -Dprefix=/usr -Dlibmpv=true -Ddvdnav=enabled -Dsdl2=enabled -Dzimg=enabled -Degl=enabled -Dwayland=enabled -Degl-wayland=enabled  -Dvaapi=enabled -Dvdpau=enabled    -Dvulkan=enabled  -Dcuda-interop=enabled -Dzlib=enabled -Ddrm=enabled -Ddmabuf-wayland=enabled -Dalsa=enabled -Dcuda-hwaccel=enabled -Dpipewire=enabled  -Ddmabuf-wayland=enabled -Dvaapi-x11=enabled  -Dvaapi-wayland=enabled -Dvaapi-drm=enabled  -Dvapoursynth=enabled
+```
 
     
      meson compile -C build
