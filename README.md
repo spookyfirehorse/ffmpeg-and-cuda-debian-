@@ -100,32 +100,7 @@ make -j$(nproc) && \
 sudo make install
 ```
 
- # ubuntu 26.04 ffmpeg 8.0
 
-```bash
- ./configure --prefix=/usr --extra-version=3 --toolchain=hardened \
-    --libdir=/usr/lib/x86_64-linux-gnu --incdir=/usr/include/x86_64-linux-gnu --arch=amd64 \
-    --enable-gpl --enable-version3 --enable-nonfree --enable-shared --disable-static \
-    --disable-stripping --disable-sndio \
-    --enable-gnutls --enable-libxml2 --enable-libfontconfig --enable-libfreetype --enable-libfribidi \
-    --enable-libass --enable-libbluray --enable-libbs2b --enable-libcaca --enable-libcdio \
-    --enable-libcodec2 --enable-libdav1d --enable-libflite --enable-libgme --enable-libgsm \
-    --enable-libjack --enable-libmp3lame --enable-libmysofa --enable-libopenjpeg --enable-libopenmpt \
-    --enable-libopus --enable-libpulse --enable-librabbitmq --enable-librist --enable-librubberband \
-    --enable-libshine --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libsrt --enable-libssh \
-    --enable-libsvtav1 --enable-libtheora --enable-libtwolame --enable-libvidstab --enable-libvorbis \
-    --enable-libvpx --enable-libwebp --enable-libx265 --enable-libx264 --enable-libxvid \
-    --enable-libzimg --enable-libzmq --enable-libzvbi --enable-lv2 --enable-openal \
-    --enable-opengl --enable-sdl2 --enable-libjxl --enable-pocketsphinx --enable-librsvg \
-    --enable-libvpl --enable-libdc1394 --enable-libdrm --enable-libiec61883 --enable-chromaprint \
-    --enable-frei0r --enable-libplacebo --enable-librav1e --enable-libaom --enable-ladspa \
-    --enable-cuda --enable-cuda-llvm --enable-cuda-nvcc --enable-nvdec --enable-cuvid \
-    --enable-nvenc --enable-ffnvcodec --enable-libnpp --enable-vaapi --enable-vulkan \
-    --enable-libfdk-aac --enable-libaribb24 --enable-libopencore-amrnb --enable-libopencore-amrwb \
-    --enable-libtesseract --enable-libvo-amrwbenc --enable-libglslang && \
-make -j$(nproc) && \
-sudo make install
-```
 
 
 
@@ -142,17 +117,11 @@ sudo make install
       sudo apt build-dep ffmpeg
       sudo apt purge  ocl-icd-libopencl1 ocl-icd-opencl-dev
       sudo apt-get install build-essential yasm cmake libtool libc6 libc6-dev unzip wget libnuma1 libnuma-dev
-      export LD_LIBRARY_PATH="/usr/local/cuda/lib64:$LD_LIBRARY_PATH"
-      export PATH=/usr/local/cuda/bin:${PATH}
-      
+  
   
 
 
-          apt source ffmpeg && cd ffmpeg-5.1.4 &&  PATH=/usr/local/cuda/bin:${PATH} ./configure --prefix=/usr/ --extra-version=3 --toolchain=hardened --libdir=/usr/lib/x86_64-linux-gnu --incdir=/usr/include/x86_64-linux-gnu --arch=amd64 --enable-gpl --disable-stripping --enable-gnutls --enable-ladspa --enable-libaom --enable-libass --enable-libbluray --enable-libbs2b --enable-libcaca --enable-libcdio --enable-libcodec2 --enable-libdav1d --enable-libflite --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libglslang --enable-libgme --enable-libgsm --enable-libjack --enable-libmp3lame --enable-libmysofa --enable-libopenjpeg --enable-libopenmpt --enable-libopus --enable-libpulse --enable-librabbitmq --enable-librist --enable-librubberband --enable-libshine --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libsrt --enable-libssh --enable-libsvtav1 --enable-libtheora --enable-libtwolame --enable-libvidstab --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libx265 --enable-libxml2 --enable-libxvid --enable-libzimg --enable-libzmq --enable-libzvbi --enable-lv2 --enable-openal --enable-opengl --enable-sdl2 --disable-sndio --enable-libjxl --enable-pocketsphinx --enable-librsvg --enable-libdc1394 --enable-libdrm --enable-libiec61883 --enable-chromaprint --enable-frei0r --enable-libx264 --enable-libplacebo --enable-librav1e --enable-shared --disable-static --enable-nonfree --enable-cuda --enable-cuda-llvm --enable-vaapi --enable-nvdec --enable-cuvid --enable-nvenc --enable-ffnvcodec --enable-libfdk-aac --enable-libwebp --enable-libaribb24 --enable-libopencore_amrnb --enable-libopencore_amrwb --enable-libtesseract --enable-libvo_amrwbenc --enable-version3 --enable-cuda-nvcc --enable-libnpp --extra-cflags=-I/usr/local/cuda/include --extra-ldflags=-L/usr/local/cuda/lib64
-
-        && make -j4 &&  sudo make -j 4 install
-
- #       look for your options
+  
 
     ffmpeg -h encoder=h264_nvenc
 
@@ -165,44 +134,57 @@ sudo make install
   --prefix=/usr \
   --libdir=/usr/lib/x86_64-linux-gnu \
   --incdir=/usr/include/x86_64-linux-gnu \
-  --extra-version=laptop-vaapi-2026 \
-  --cpu=native \
-  --extra-cflags="-O2 -pipe" \
-  --disable-all \
-  --enable-pthreads \
-  --enable-avcodec \
-  --enable-avformat \
-  --enable-avfilter \
-  --enable-avdevice \
-  --enable-swresample \
-  --enable-swscale \
-  --enable-ffmpeg \
+  --arch=x86_64 \
+  --cpu=goldmont \
+  --extra-cflags='-O3 -pipe -march=goldmont -mtune=goldmont -mfpmath=sse -msse4.2 -ftree-vectorize -ffast-math -fno-semantic-interposition -fPIC' \
+  --extra-ldflags='-Wl,-O1,--as-needed -fPIC' \
+  --extra-libs='-lstdc++ -lm -lpthread' \
+  --enable-pic \
   --enable-shared \
   --disable-static \
   --disable-debug \
-  --disable-doc \
+  --enable-stripping \
   --enable-gpl \
   --enable-version3 \
   --enable-nonfree \
+  --disable-doc \
+  --disable-manpages \
+  --disable-htmlpages \
+  --disable-podpages \
+  --disable-txtpages \
+  --enable-pthreads \
+  --enable-x86asm \
+  --enable-gnutls \
+  --enable-vulkan \
+  --enable-libshaderc \
   --enable-vaapi \
   --enable-libdrm \
-  --enable-hwaccel=h264_vaapi,hevc_vaapi,vp9_vaapi,av1_vaapi \
+  --enable-alsa \
+  --enable-indev=alsa \
+  --enable-outdev=alsa \
+  --enable-ladspa \
+  --enable-librubberband \
+  --enable-libsoxr \
+  --enable-libpulse \
   --enable-libx264 \
   --enable-libx265 \
   --enable-libfdk-aac \
   --enable-libmp3lame \
   --enable-libopus \
-  --enable-gnutls \
-  --enable-network \
-  --enable-libpulse --enable-avfilter --enable-filter=fps --enable-filter=crystalizer \
-  --enable-protocol=file,http,https,tcp,udp,rtp,rtsp,rtmp,tls \
-  --enable-encoder=h264_vaapi,hevc_vaapi,av1_vaapi,libx264,libx265,libfdk_aac,libmp3lame,libopus \
-  --enable-decoder=h264,hevc,vp9,av1,aac,mp3,opus \
-  --enable-muxer=mp4,mov,matroska,mp3,rtsp \
-  --enable-demuxer=mov,matroska,mp3,rtsp \
-  --enable-parser=h264,hevc,vp9,av1,aac,mpegaudio \
-  --enable-bsfs \
-  --enable-filter=scale_vaapi,procamp_vaapi,scale,copy,format,aresample \
+  --enable-libvorbis \
+  --disable-vdpau \
+  --disable-cuda \
+  --disable-cuvid \
+  --disable-nvenc \
+  --disable-nvdec \
+  --disable-libnpp \
+  --disable-ffnvcodec \
+  --disable-cuda-llvm \
+  --disable-libgsm \
+  --disable-decoder='gsm,h261,h263,h263i,h263p,msmpeg4v1,msmpeg4v2,msmpeg4v3,vc1,wmv1,wmv2,wmv3,indeo2,indeo3,indeo4,indeo5,cinepak,real_144,real_288,roq,rv10,rv20,rv30,rv40' \
+  --disable-encoder='gsm,h261,h263,h263p,msmpeg4v2,msmpeg4v3,wmv1,wmv2,roq,rv10,rv20' \
+  --disable-parser='gsm,h261,h263,vc1' \
+  --disable-hwaccel='h263_vaapi,vc1_vaapi,wmv3_vaapi' \
   && make -j$(nproc) && sudo make install && sudo ldconfig
 ```
 # test cuda
