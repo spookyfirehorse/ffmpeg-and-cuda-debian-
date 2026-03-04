@@ -12,8 +12,8 @@
  --enable-pthreads --enable-shared --disable-static --disable-debug --disable-doc \
  --enable-gpl --enable-version3 --enable-nonfree --enable-pic --enable-stripping \
  --disable-cuda --disable-cuvid --disable-nvenc --disable-nvdec --disable-libnpp --disable-ffnvcodec \
- --enable-vaapi --enable-vulkan --enable-libshaderc --enable-libdrm --disable-vdpau \
- --enable-hwaccel=h264_vaapi,hevc_vaapi,vp9_vaapi,av1_vaapi,h264_vulkan,hevc_vulkan,av1_vulkan \
+ --enable-vaapi --disable-vulkan --disable-libshaderc --enable-libdrm --disable-vdpau \
+ --enable-hwaccel=h264_vaapi,hevc_vaapi,vp9_vaapi,av1_vaapi \
  --enable-gnutls --enable-gmp --enable-gcrypt --enable-network \
  --enable-libx264 --enable-libx265 --enable-libfdk-aac --enable-libmp3lame --enable-libopus --enable-libvorbis --enable-libvpx \
  --enable-libfreetype --enable-libharfbuzz --enable-libfribidi \
