@@ -38,9 +38,6 @@ NVENC (Encoder): libavcodec/nvenc.c, libavcodec/nvenc_h264.c, libavcodec/nvenc_h
 NVDEC/CUVID (Decoder): libavcodec/cuviddec.c
 CUDA-Filter: libavfilter/vf_scale_cuda.c, libavfilter/vf_yadif_cuda.c
 NPP-Filter: libavfilter/vf_scale_npp.c
-Soll ich dir zeigen, wie du mit grep prüfst, welche Nvidia-Kapazitäten dein aktuell installiertes FFmpeg-Binary unterstützt?Ja oder Nein?
-KI-Antworten können Fehler enthalten. Weitere Informationen
-
 
 
 
