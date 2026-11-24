@@ -109,7 +109,7 @@ make distclean && ./configure --prefix=/usr \
  --enable-decoder=h264,hevc,vp9,av1,mjpeg,mpeg1video,mpeg2video,mpeg4,aac,mp3,flac,vorbis,opus,pcm_s16le,pcm_s24le,pcm_s32le,rawvideo,adpcm_swf,ass,srt \
  --enable-decoder=h264_cuvid,hevc_cuvid,vp9_cuvid \
  --enable-encoder=h264_nvenc,hevc_nvenc,av1_nvenc,h264_vaapi,hevc_vaapi,aac,libfdk_aac,libmp3lame,libopus,flac \
- --enable-filter=afifo,anull,asplit,amix,aresample,aformat,volume,loudnorm,equalizer,crystalizer,ladspa,lv2,rubberband,scale,format,fps,crop,overlay,drawtext,hwupload_cuda,hwdownload,scale_npp,yadif_cuda \
+ --enable-filter=silenceremove,atempo,afifo,anull,asplit,amix,aresample,aformat,volume,loudnorm,equalizer,crystalizer,ladspa,lv2,rubberband,scale,format,fps,crop,overlay,drawtext,hwupload_cuda,hwdownload,scale_npp,yadif_cuda \
  --enable-parser=h264,hevc,vp9,mjpeg,mpegvideo,mpeg4video,aac,mp3,flac,opus,vorbis \
  --enable-bsf=h264_mp4toannexb,hevc_mp4toannexb,mpeg4_unpack_bframes,aac_adtstoasc,extract_extradata,null \
  --enable-asm --enable-inline-asm --enable-runtime-cpudetect \
